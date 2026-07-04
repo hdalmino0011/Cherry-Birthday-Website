@@ -46,9 +46,6 @@ const DOM = {
     // Floating Hearts
     floatingHeartsContainer: document.getElementById('floatingHearts'),
 
-    // Celebration (cake & flowers section)
-    phTime:             document.getElementById('phTime'),
-
     // Wishes Form
     wishesForm:         document.getElementById('wishesForm'),
     wishName:           document.getElementById('wishName'),
@@ -652,43 +649,6 @@ const Celebration = (() => {
     };
 
     return { init, show, hide };
-
-})();
-
-/* ============================================
-   CELEBRATION CLOCK
-   Shows the current time in the Philippines.
-   This replaces the old countdown/count-up timer.
-   ============================================ */
-const CelebrationClock = (() => {
-
-    let intervalId = null;
-
-    /**
-     * Update the Philippines time display
-     */
-    const update = () => {
-        if (!DOM.phTime) return;
-
-        const now = new Date();
-        const phTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Manila' }));
-
-        const hours   = padNumber(phTime.getHours());
-        const minutes = padNumber(phTime.getMinutes());
-        const seconds = padNumber(phTime.getSeconds());
-
-        DOM.phTime.textContent = `${hours}:${minutes}:${seconds}`;
-    };
-
-    /**
-     * Initialize the celebration clock
-     */
-    const init = () => {
-        update(); // Run immediately
-        intervalId = setInterval(update, 1000);
-    };
-
-    return { init };
 
 })();
 
@@ -1686,7 +1646,6 @@ const App = (() => {
         // Core functionality
         Navigation.init();
         FloatingHearts.init();
-        CelebrationClock.init(); // Replaces the old countdown/countup
         BackToTop.init();
         ScrollReveal.init();
         ScrollIndicator.init();
