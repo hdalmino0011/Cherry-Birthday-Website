@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="description" content="A birthday love letter website for Cherry Ann M. Casinto from Hanz Dee Dalmino">
     <title>Happy Birthday, Cherry Ann! 💕</title>
 
@@ -19,17 +19,14 @@
 </head>
 <body>
 
-    <!-- ============================================ -->
-    <!-- FLOATING HEARTS BACKGROUND                   -->
-    <!-- ============================================ -->
+    <!-- FLOATING HEARTS -->
     <div class="floating-hearts" id="floatingHearts" aria-hidden="true"></div>
 
-    <!-- ============================================ -->
-    <!-- NAVIGATION (Minimal, Top)                    -->
-    <!-- ============================================ -->
+    <!-- NAVIGATION -->
     <nav class="nav" id="mainNav">
         <a href="#hero" class="nav-logo">
-            <i class="fas fa-heart"></i> Cherry Ann's Day
+            <i class="fas fa-heart"></i>
+            <span>Cherry Ann's Day</span>
         </a>
         <div class="nav-links">
             <a href="#letter">Letter</a>
@@ -44,18 +41,25 @@
 
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
-        <a href="#letter">💌 Love Letter</a>
-        <a href="#memories">📸 Memories</a>
-        <a href="#celebration">🎉 Celebration</a>
-        <a href="#wishes">💌 Send Wishes</a>
         <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
             <i class="fas fa-times"></i>
         </button>
+        <a href="#letter" class="mobile-link">
+            <i class="fas fa-envelope-heart"></i> Love Letter
+        </a>
+        <a href="#memories" class="mobile-link">
+            <i class="fas fa-images"></i> Memories
+        </a>
+        <a href="#celebration" class="mobile-link">
+            <i class="fas fa-cake-candles"></i> Celebration
+        </a>
+        <a href="#wishes" class="mobile-link">
+            <i class="fas fa-paper-plane"></i> Send Wishes
+        </a>
     </div>
+    <div class="mobile-menu-overlay" id="mobileOverlay"></div>
 
-    <!-- ============================================ -->
-    <!-- HERO SECTION                                 -->
-    <!-- ============================================ -->
+    <!-- HERO SECTION -->
     <header class="hero" id="hero">
         <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
 
@@ -67,12 +71,14 @@
             <p class="hero-subtitle">To My Dearest</p>
             <h1 class="hero-name">Cherry Ann</h1>
             <h2 class="hero-title">Happy Birthday!</h2>
+
             <p class="hero-date">
                 <i class="fas fa-calendar-check"></i>
                 July 5, 2026
             </p>
+
             <p class="hero-message">
-                "Every day with you is a gift. You are my sunshine,<br>
+                "Every day with you is a gift. You are my sunshine,
                 my love, my everything."
             </p>
 
@@ -95,51 +101,48 @@
         </div>
     </header>
 
-    <!-- ============================================ -->
-    <!-- ABOUT / LOVE LETTER SECTION                  -->
-    <!-- ============================================ -->
+    <!-- LOVE LETTER SECTION -->
     <section class="section love-letter-section" id="letter">
         <div class="container">
             <div class="section-header">
                 <i class="fas fa-envelope-open-text section-icon"></i>
                 <h2 class="section-title">A Letter From My Heart</h2>
                 <div class="heart-divider">
-                    <span></span><i class="fas fa-heart"></i><span></span>
+                    <span></span>
+                    <i class="fas fa-heart"></i>
+                    <span></span>
                 </div>
             </div>
 
             <div class="letter-card">
                 <div class="letter-card-inner">
-                    <div class="letter-stamp">
-                        <i class="fas fa-heart"></i>
+                    <div class="letter-top-bar">
+                        <p class="letter-date">July 5, 2026</p>
+                        <div class="letter-stamp">
+                            <i class="fas fa-heart"></i>
+                        </div>
                     </div>
-                    <p class="letter-date">July 5, 2026</p>
+
                     <p class="letter-greeting">My Baby Loveeeloveee Cherry,</p>
 
                     <p class="letter-body">
                         Today is all about you. And I want you to know how much you mean to me.
                     </p>
-
                     <p class="letter-body">
                         You came into my life and made everything better. Your smile makes my day brighter. Your laugh is the sweetest sound I have ever heard. When I am with you, I feel like I am home.
                     </p>
-
                     <p class="letter-body">
                         You are not just my girlfriend. You are my best friend. You are my partner in everything. You are the person I want to share all my happy moments with and even the sad ones. You make me feel safe. You make me feel loved. You make me feel like I can do anything.
                     </p>
-
                     <p class="letter-body">
                         I thank God every day for bringing you into my life. You are truly a blessing. God knew exactly what I needed when He gave me you. Your heart is so pure and full of love, and I see God's goodness in you every single day.
                     </p>
-
                     <p class="letter-body">
                         We have been through so much together. The highs and the lows. The happy days and the hard days. Through it all, you never gave up on us. You stayed by my side. You showed me what real love looks like. And because of you, I have become a better person.
                     </p>
-
                     <p class="letter-body">
                         I love the way your eyes light up when you are happy. I love how you care so much about the people you love. I love how you make ordinary moments feel so special. You have the biggest heart, and I am so lucky to have you in my life.
                     </p>
-
                     <p class="letter-body">
                         Today is your birthday. And I want you to know that I will always be here for you. I will love you every single day. I will support you in everything you do. I will make sure you always feel special, because you truly are.
                     </p>
@@ -154,28 +157,28 @@
                         Happy Birthday, my Baby Loveeeloveee Cherry. You deserve all the happiness in the world. And I want to be the one to give it to you. May God continue to bless you and guide you always.
                     </p>
 
-                    <p class="letter-closing">
-                        Forever yours,
-                    </p>
-                    <p class="letter-signature">
-                        Hanz Dee Dalmino
-                        <i class="fas fa-heart pulse-heart"></i>
-                    </p>
+                    <div class="letter-footer">
+                        <p class="letter-closing">Forever yours,</p>
+                        <p class="letter-signature">
+                            Hanz Dee Dalmino
+                            <i class="fas fa-heart pulse-heart"></i>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ============================================ -->
-    <!-- GALLERY / MEMORIES SECTION                   -->
-    <!-- ============================================ -->
+    <!-- MEMORIES SECTION -->
     <section class="section memories-section" id="memories">
         <div class="container">
             <div class="section-header">
                 <i class="fas fa-images section-icon"></i>
                 <h2 class="section-title">Our Beautiful Memories</h2>
                 <div class="heart-divider">
-                    <span></span><i class="fas fa-heart"></i><span></span>
+                    <span></span>
+                    <i class="fas fa-heart"></i>
+                    <span></span>
                 </div>
                 <p class="section-subtitle">
                     Every moment with you is a treasure I hold close to my heart
@@ -183,11 +186,11 @@
             </div>
 
             <div class="memories-grid">
-
                 <div class="memory-card">
                     <div class="memory-card-image">
-                        <img src="images/memory1.jpg" alt="Our First Date" loading="lazy" onerror="this.classList.add('img-failed')">
-                        <i class="fas fa-heart memory-card-placeholder-icon"></i>
+                        <img src="images/memory1.jpg" alt="Our First Date" loading="lazy"
+                             onerror="this.classList.add('img-failed')">
+                        <i class="fas fa-heart memory-placeholder-icon"></i>
                     </div>
                     <div class="memory-card-overlay">
                         <i class="fas fa-heart"></i>
@@ -200,8 +203,9 @@
 
                 <div class="memory-card">
                     <div class="memory-card-image">
-                        <img src="images/memory2.jpg" alt="Your Smile" loading="lazy" onerror="this.classList.add('img-failed')">
-                        <i class="fas fa-face-smile-beam memory-card-placeholder-icon"></i>
+                        <img src="images/memory2.jpg" alt="Your Smile" loading="lazy"
+                             onerror="this.classList.add('img-failed')">
+                        <i class="fas fa-face-smile-beam memory-placeholder-icon"></i>
                     </div>
                     <div class="memory-card-overlay">
                         <i class="fas fa-heart"></i>
@@ -214,8 +218,9 @@
 
                 <div class="memory-card">
                     <div class="memory-card-image">
-                        <img src="images/memory3.jpg" alt="Holding Hands" loading="lazy" onerror="this.classList.add('img-failed')">
-                        <i class="fas fa-hands-holding memory-card-placeholder-icon"></i>
+                        <img src="images/memory3.jpg" alt="Holding Hands" loading="lazy"
+                             onerror="this.classList.add('img-failed')">
+                        <i class="fas fa-hands-holding memory-placeholder-icon"></i>
                     </div>
                     <div class="memory-card-overlay">
                         <i class="fas fa-heart"></i>
@@ -228,8 +233,9 @@
 
                 <div class="memory-card">
                     <div class="memory-card-image">
-                        <img src="images/memory4.jpg" alt="Laughing Together" loading="lazy" onerror="this.classList.add('img-failed')">
-                        <i class="fas fa-face-laugh-beam memory-card-placeholder-icon"></i>
+                        <img src="images/memory4.jpg" alt="Laughing Together" loading="lazy"
+                             onerror="this.classList.add('img-failed')">
+                        <i class="fas fa-face-laugh-beam memory-placeholder-icon"></i>
                     </div>
                     <div class="memory-card-overlay">
                         <i class="fas fa-heart"></i>
@@ -242,8 +248,9 @@
 
                 <div class="memory-card">
                     <div class="memory-card-image">
-                        <img src="images/memory5.jpg" alt="Sunset Walks" loading="lazy" onerror="this.classList.add('img-failed')">
-                        <i class="fas fa-sun memory-card-placeholder-icon"></i>
+                        <img src="images/memory5.jpg" alt="Sunset Walks" loading="lazy"
+                             onerror="this.classList.add('img-failed')">
+                        <i class="fas fa-sun memory-placeholder-icon"></i>
                     </div>
                     <div class="memory-card-overlay">
                         <i class="fas fa-heart"></i>
@@ -256,8 +263,9 @@
 
                 <div class="memory-card">
                     <div class="memory-card-image">
-                        <img src="images/memory6.jpg" alt="Forever Us" loading="lazy" onerror="this.classList.add('img-failed')">
-                        <i class="fas fa-infinity memory-card-placeholder-icon"></i>
+                        <img src="images/memory6.jpg" alt="Forever Us" loading="lazy"
+                             onerror="this.classList.add('img-failed')">
+                        <i class="fas fa-infinity memory-placeholder-icon"></i>
                     </div>
                     <div class="memory-card-overlay">
                         <i class="fas fa-heart"></i>
@@ -267,135 +275,118 @@
                         <p>Together always</p>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- ============================================ -->
-    <!-- CELEBRATION SECTION — Cake & Flowers         -->
-    <!-- (Replaces the old countdown timer)           -->
-    <!-- ============================================ -->
+    <!-- CELEBRATION SECTION -->
     <section class="section celebration-section" id="celebration">
         <div class="container">
             <div class="section-header">
                 <i class="fas fa-cake-candles section-icon"></i>
                 <h2 class="section-title">Today Is Your Day!</h2>
                 <div class="heart-divider">
-                    <span></span><i class="fas fa-heart"></i><span></span>
+                    <span></span>
+                    <i class="fas fa-heart"></i>
+                    <span></span>
                 </div>
                 <p class="section-subtitle">
-                    July 5, 2026 &bull; Celebrating the most beautiful soul in the Philippines
+                    July 5, 2026 &bull; Celebrating the most beautiful soul
                 </p>
             </div>
 
             <div class="celebration-wrapper">
                 <div class="celebration-container">
 
-                    <div class="celebration-main">
-
-                        <!-- Cake + flowers illustration -->
-                        <div class="cake-illustration" aria-hidden="true">
-                            <svg viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg">
-                                <!-- flowers -->
-                                <g class="floating-petal">
-                                    <circle cx="30" cy="60" r="7" fill="#FFB6C1"/>
-                                    <circle cx="20" cy="50" r="7" fill="#FFB6C1"/>
-                                    <circle cx="40" cy="50" r="7" fill="#FFB6C1"/>
-                                    <circle cx="30" cy="42" r="7" fill="#FFB6C1"/>
-                                    <circle cx="30" cy="50" r="6" fill="#FFD700"/>
-                                </g>
-                                <g class="floating-petal">
-                                    <circle cx="190" cy="70" r="6" fill="#DDA0DD"/>
-                                    <circle cx="182" cy="62" r="6" fill="#DDA0DD"/>
-                                    <circle cx="198" cy="62" r="6" fill="#DDA0DD"/>
-                                    <circle cx="190" cy="55" r="6" fill="#DDA0DD"/>
-                                    <circle cx="190" cy="62" r="5" fill="#FFD700"/>
-                                </g>
-                                <!-- candles -->
-                                <g class="candle-flame">
-                                    <ellipse cx="80" cy="55" rx="5" ry="8" fill="#FFD700"/>
-                                    <ellipse cx="80" cy="57" rx="2.5" ry="4" fill="#FF7F50"/>
-                                    <rect x="77" y="60" width="6" height="22" rx="2" fill="#FF7F50"/>
-                                </g>
-                                <g class="candle-flame">
-                                    <ellipse cx="110" cy="48" rx="5" ry="8" fill="#FFD700"/>
-                                    <ellipse cx="110" cy="50" rx="2.5" ry="4" fill="#FF7F50"/>
-                                    <rect x="107" y="53" width="6" height="29" rx="2" fill="#E75480"/>
-                                </g>
-                                <g class="candle-flame">
-                                    <ellipse cx="140" cy="55" rx="5" ry="8" fill="#FFD700"/>
-                                    <ellipse cx="140" cy="57" rx="2.5" ry="4" fill="#FF7F50"/>
-                                    <rect x="137" y="60" width="6" height="22" rx="2" fill="#FF7F50"/>
-                                </g>
-                                <!-- cake tiers -->
-                                <rect x="55" y="82" width="110" height="34" rx="6" fill="#FFF0F3"/>
-                                <rect x="55" y="82" width="110" height="10" rx="5" fill="#FFB6C1"/>
-                                <rect x="40" y="116" width="140" height="42" rx="8" fill="#E75480"/>
-                                <rect x="40" y="116" width="140" height="12" rx="6" fill="#FFB6C1"/>
-                                <!-- plate -->
-                                <ellipse cx="110" cy="162" rx="90" ry="10" fill="#DDA0DD" opacity="0.5"/>
-                            </svg>
-                        </div>
-
-                        <h2 class="celebration-title">
-                            Happy Birthday, Cherry Ann!
-                        </h2>
-                        <p class="celebration-date">
-                            <i class="fas fa-calendar-check"></i>
-                            July 5, 2026
-                        </p>
-                        <div class="celebration-message-box">
-                            <p>
-                                🎉 Today is YOUR day, my love! 🎉
-                            </p>
-                            <p>
-                                The world celebrates because you were born.
-                                I celebrate because you are mine.
-                            </p>
-                            <p>
-                                <i class="fas fa-heart" style="color: #FFB6C1;"></i>
-                                Happy Birthday, Baby Loveeeloveee Cherry!
-                                <i class="fas fa-heart" style="color: #FFB6C1;"></i>
-                            </p>
-                        </div>
-
-                        <p class="gifts-label">What today is made of</p>
-                        <div class="gifts-row">
-                            <div class="gift-card">
-                                <i class="fas fa-cake-candles"></i>
-                                <span>Cake</span>
-                            </div>
-                            <div class="gift-card">
-                                <i class="fas fa-spa"></i>
-                                <span>Flowers</span>
-                            </div>
-                            <div class="gift-card">
-                                <i class="fas fa-heart"></i>
-                                <span>Love</span>
-                            </div>
-                            <div class="gift-card">
-                                <i class="fas fa-hands-praying"></i>
-                                <span>Blessings</span>
-                            </div>
-                        </div>
+                    <div class="cake-illustration" aria-hidden="true">
+                        <svg viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg">
+                            <g class="floating-petal">
+                                <circle cx="30" cy="60" r="7" fill="#FFB6C1"/>
+                                <circle cx="20" cy="50" r="7" fill="#FFB6C1"/>
+                                <circle cx="40" cy="50" r="7" fill="#FFB6C1"/>
+                                <circle cx="30" cy="42" r="7" fill="#FFB6C1"/>
+                                <circle cx="30" cy="50" r="6" fill="#FFD700"/>
+                            </g>
+                            <g class="floating-petal">
+                                <circle cx="190" cy="70" r="6" fill="#DDA0DD"/>
+                                <circle cx="182" cy="62" r="6" fill="#DDA0DD"/>
+                                <circle cx="198" cy="62" r="6" fill="#DDA0DD"/>
+                                <circle cx="190" cy="55" r="6" fill="#DDA0DD"/>
+                                <circle cx="190" cy="62" r="5" fill="#FFD700"/>
+                            </g>
+                            <g class="candle-flame">
+                                <ellipse cx="80" cy="55" rx="5" ry="8" fill="#FFD700"/>
+                                <ellipse cx="80" cy="57" rx="2.5" ry="4" fill="#FF7F50"/>
+                                <rect x="77" y="60" width="6" height="22" rx="2" fill="#FF7F50"/>
+                            </g>
+                            <g class="candle-flame">
+                                <ellipse cx="110" cy="48" rx="5" ry="8" fill="#FFD700"/>
+                                <ellipse cx="110" cy="50" rx="2.5" ry="4" fill="#FF7F50"/>
+                                <rect x="107" y="53" width="6" height="29" rx="2" fill="#E75480"/>
+                            </g>
+                            <g class="candle-flame">
+                                <ellipse cx="140" cy="55" rx="5" ry="8" fill="#FFD700"/>
+                                <ellipse cx="140" cy="57" rx="2.5" ry="4" fill="#FF7F50"/>
+                                <rect x="137" y="60" width="6" height="22" rx="2" fill="#FF7F50"/>
+                            </g>
+                            <rect x="55" y="82" width="110" height="34" rx="6" fill="#FFF0F3"/>
+                            <rect x="55" y="82" width="110" height="10" rx="5" fill="#FFB6C1"/>
+                            <rect x="40" y="116" width="140" height="42" rx="8" fill="#E75480"/>
+                            <rect x="40" y="116" width="140" height="12" rx="6" fill="#FFB6C1"/>
+                            <ellipse cx="110" cy="162" rx="90" ry="10" fill="#DDA0DD" opacity="0.5"/>
+                        </svg>
                     </div>
 
+                    <h2 class="celebration-title">Happy Birthday, Cherry Ann!</h2>
+                    <p class="celebration-date">
+                        <i class="fas fa-calendar-check"></i>
+                        July 5, 2026
+                    </p>
+
+                    <div class="celebration-message-box">
+                        <p>🎉 Today is YOUR day, my love! 🎉</p>
+                        <p>The world celebrates because you were born. I celebrate because you are mine.</p>
+                        <p>
+                            <i class="fas fa-heart" style="color:#FFB6C1;"></i>
+                            Happy Birthday, Baby Loveeeloveee Cherry!
+                            <i class="fas fa-heart" style="color:#FFB6C1;"></i>
+                        </p>
+                    </div>
+
+                    <p class="gifts-label">What today is made of</p>
+                    <div class="gifts-row">
+                        <div class="gift-card">
+                            <i class="fas fa-cake-candles"></i>
+                            <span>Cake</span>
+                        </div>
+                        <div class="gift-card">
+                            <i class="fas fa-spa"></i>
+                            <span>Flowers</span>
+                        </div>
+                        <div class="gift-card">
+                            <i class="fas fa-heart"></i>
+                            <span>Love</span>
+                        </div>
+                        <div class="gift-card">
+                            <i class="fas fa-hands-praying"></i>
+                            <span>Blessings</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ============================================ -->
-    <!-- WISHES / LOVE NOTES SECTION                  -->
-    <!-- ============================================ -->
+    <!-- WISHES SECTION -->
     <section class="section wishes-section" id="wishes">
         <div class="container">
             <div class="section-header">
                 <i class="fas fa-paper-plane section-icon"></i>
                 <h2 class="section-title">Send Your Love</h2>
                 <div class="heart-divider">
-                    <span></span><i class="fas fa-heart"></i><span></span>
+                    <span></span>
+                    <i class="fas fa-heart"></i>
+                    <span></span>
                 </div>
                 <p class="section-subtitle">
                     Leave a heartfelt note for Cherry Ann's special day
@@ -404,9 +395,14 @@
 
             <div class="wishes-container">
 
-                <!-- Form -->
+                <!-- Form Side -->
                 <div class="wishes-form-wrapper">
-                    <form class="wishes-form" id="wishesForm">
+                    <form class="wishes-form" id="wishesForm" novalidate>
+                        <h3 class="form-title">
+                            <i class="fas fa-pen-nib"></i>
+                            Write a Love Note
+                        </h3>
+
                         <div class="form-group">
                             <label for="wishName">
                                 <i class="fas fa-user"></i> Your Name
@@ -416,6 +412,7 @@
                                 id="wishName"
                                 placeholder="Enter your name..."
                                 required
+                                autocomplete="off"
                             >
                         </div>
 
@@ -425,7 +422,7 @@
                             </label>
                             <textarea
                                 id="wishMessage"
-                                rows="4"
+                                rows="5"
                                 placeholder="Write a sweet birthday message for Cherry Ann..."
                                 required
                             ></textarea>
@@ -438,12 +435,12 @@
                         </button>
                     </form>
 
-                    <!-- Thank You Message (Hidden by default) -->
+                    <!-- Thank You Overlay -->
                     <div class="thank-you-message" id="thankYouMessage">
                         <div class="thank-you-inner">
                             <i class="fas fa-heart pulse-heart"></i>
                             <h3>Thank You!</h3>
-                            <p>Your love note has been sent! Cherry Ann's heart is full. 💕</p>
+                            <p>Your love note has been sent!<br>Cherry Ann's heart is full. 💕</p>
                             <button class="btn-send-another" id="sendAnotherBtn">
                                 <i class="fas fa-plus"></i> Send Another
                             </button>
@@ -451,7 +448,7 @@
                     </div>
                 </div>
 
-                <!-- Carousel Wishes -->
+                <!-- Carousel Side -->
                 <div class="wishes-carousel-wrapper">
                     <h3 class="carousel-title">
                         <i class="fas fa-envelope-open"></i>
@@ -459,11 +456,8 @@
                     </h3>
 
                     <div class="carousel-container" id="wishCarousel">
-                        <div class="carousel-track" id="carouselTrack">
-                            <!-- Wishes will be dynamically inserted here -->
-                        </div>
+                        <div class="carousel-track" id="carouselTrack"></div>
 
-                        <!-- Navigation Arrows -->
                         <button class="carousel-arrow carousel-arrow-prev" id="carouselPrev" aria-label="Previous wish">
                             <i class="fas fa-chevron-left"></i>
                         </button>
@@ -472,10 +466,7 @@
                         </button>
                     </div>
 
-                    <!-- Dots Indicator -->
                     <div class="carousel-dots" id="carouselDots"></div>
-
-                    <!-- Counter -->
                     <div class="carousel-counter" id="carouselCounter">
                         <span id="currentSlide">1</span> / <span id="totalSlides">0</span>
                     </div>
@@ -485,40 +476,35 @@
         </div>
     </section>
 
-    <!-- ============================================ -->
-    <!-- FOOTER                                       -->
-    <!-- ============================================ -->
+    <!-- FOOTER -->
     <footer class="footer" id="footer">
         <div class="container">
             <div class="footer-content">
+                <div class="footer-heart-icon">
+                    <i class="fas fa-heart pulse-heart"></i>
+                </div>
                 <p class="footer-text">
                     Made with infinite love for
                     <span class="footer-highlight">Cherry Ann</span>
-                    by
-                    <span class="footer-highlight">Hanz Dee Dalmino</span>
                 </p>
-                <div class="footer-heart">
-                    <i class="fas fa-heart pulse-heart"></i>
-                </div>
+                <p class="footer-text footer-by">
+                    by <span class="footer-highlight">Hanz Dee Dalmino</span>
+                </p>
                 <p class="footer-subtext">
-                    &copy; 2026 &bull; A love story in the making &bull;
-                    <i class="fas fa-heart" style="color: #FFB6C1;"></i>
+                    &copy; 2026 &bull; A love story in the making
+                    <i class="fas fa-heart" style="color:#FFB6C1; margin-left:4px;"></i>
                 </p>
             </div>
         </div>
     </footer>
 
-    <!-- ============================================ -->
-    <!-- BACK TO TOP BUTTON                           -->
-    <!-- ============================================ -->
+    <!-- BACK TO TOP -->
     <button class="back-to-top" id="backToTop" aria-label="Back to top">
         <i class="fas fa-heart"></i>
     </button>
 
-    <!-- ============================================ -->
-    <!-- CUSTOM ALERT / MODAL                         -->
-    <!-- ============================================ -->
-    <div class="custom-alert" id="customAlert">
+    <!-- CUSTOM ALERT -->
+    <div class="custom-alert" id="customAlert" role="dialog" aria-modal="true">
         <div class="custom-alert-content">
             <i class="fas fa-heart pulse-heart alert-icon"></i>
             <h3 id="alertTitle">Thank You!</h3>
@@ -529,13 +515,12 @@
         </div>
     </div>
 
-    <!-- ============================================ -->
-    <!-- BIRTHDAY CELEBRATION OVERLAY                 -->
-    <!-- ============================================ -->
-    <div class="celebration-overlay" id="celebrationOverlay">
+    <!-- CELEBRATION OVERLAY -->
+    <div class="celebration-overlay" id="celebrationOverlay" role="dialog" aria-modal="true">
         <canvas id="balloonCanvas"></canvas>
         <div class="celebration-message">
-            <h2>🎂 Happy Birthday, Cherry Ann! 🎂</h2>
+            <div class="celebration-emoji">🎂</div>
+            <h2>Happy Birthday,<br>Cherry Ann!</h2>
             <p>Wishing you all the love and happiness in the world!</p>
             <button class="btn-close-celebration" id="closeCelebrationBtn">
                 <i class="fas fa-heart"></i> Thank You, My Love
@@ -543,8 +528,6 @@
         </div>
     </div>
 
-    <!-- External Script -->
     <script src="script.js"></script>
-
 </body>
 </html>
