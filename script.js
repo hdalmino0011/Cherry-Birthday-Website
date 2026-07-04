@@ -21,6 +21,10 @@ const COLORS = {
     white: '#FFFFFF',
 };
 
+/* Reusable icon glyphs (Font Awesome classes) instead of emoji characters,
+   so every "heart" moment in the UI stays visually consistent. */
+const HEART_ICON_CLASSES = ['fa-heart', 'fa-heart-circle-check', 'fa-heart-pulse'];
+
 /* ============================================
    DOM ELEMENT REFERENCES
    ============================================ */
@@ -70,8 +74,6 @@ const DOM = {
 /* ============================================
    UTILITY FUNCTIONS
    ============================================ */
-const padNumber = (num) => String(num).padStart(2, '0');
-
 const showAlert = (title, message) => {
     DOM.alertTitle.textContent   = title;
     DOM.alertMessage.textContent = message;
@@ -87,6 +89,12 @@ const hideAlert = () => {
 const randomBetween = (min, max) => Math.random() * (max - min) + min;
 
 const randomFrom = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+const escapeHtml = (str) => {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+};
 
 /* ============================================
    NAVIGATION
@@ -162,16 +170,14 @@ const Navigation = (() => {
    ============================================ */
 const FloatingHearts = (() => {
 
-    const heartSymbols = ['❤', '♥', '💕', '💗', '💖', '💓', '💞'];
-
     const createHeart = () => {
         if (!DOM.floatingHeartsContainer) return;
 
-        const heart      = document.createElement('div');
+        const heart = document.createElement('div');
         heart.classList.add('floating-heart');
-        heart.textContent = randomFrom(heartSymbols);
+        heart.innerHTML = `<i class="fas ${randomFrom(HEART_ICON_CLASSES)}"></i>`;
 
-        const size     = randomBetween(14, 30);
+        const size     = randomBetween(14, 28);
         const leftPos  = randomBetween(0, 100);
         const duration = randomBetween(12, 25);
         const delay    = randomBetween(0, 15);
@@ -618,7 +624,7 @@ const WishCarousel = (() => {
                     <div class="slide-relation">${escapeHtml(wish.relation)}</div>
                 </div>
             </div>
-            <p class="slide-message">"${escapeHtml(wish.message)}"</p>
+            <p class="slide-message">${escapeHtml(wish.message)}</p>
             <div class="slide-hearts">
                 <i class="fas fa-heart"></i>
                 <i class="fas fa-heart"></i>
@@ -627,12 +633,6 @@ const WishCarousel = (() => {
         `;
 
         return slide;
-    };
-
-    const escapeHtml = (str) => {
-        const div = document.createElement('div');
-        div.textContent = str;
-        return div.innerHTML;
     };
 
     const renderCarousel = () => {
@@ -784,8 +784,8 @@ const WishesForm = (() => {
 
         if (!name || !message) {
             showAlert(
-                'Oops! 💕',
-                'Please fill in your name and a love note for Cherry Ann!'
+                'Almost there',
+                'Please fill in your name and a love note for Cherry Ann.'
             );
             return;
         }
@@ -796,9 +796,9 @@ const WishesForm = (() => {
 
         setTimeout(() => {
             showAlert(
-                'Love Sent! 💌',
-                `Thank you, ${name}! Your love note has been sent! ` +
-                `Cherry Ann's heart is full. 💕`
+                'Love Sent',
+                `Thank you, ${name}. Your love note has been sent. ` +
+                `Cherry Ann's heart is full.`
             );
         }, 500);
 
@@ -1030,16 +1030,15 @@ const MemoryCards = (() => {
     };
 
     const createSparkle = (x, y) => {
-        const hearts = ['💕', '💗', '💖', '❤', '💓'];
-
         for (let i = 0; i < 6; i++) {
-            const sparkle = document.createElement('div');
-            sparkle.textContent = randomFrom(hearts);
+            const sparkle = document.createElement('i');
+            sparkle.className = `fas ${randomFrom(HEART_ICON_CLASSES)}`;
             sparkle.style.cssText = `
                 position: fixed;
                 left: ${x}px;
                 top: ${y}px;
-                font-size: ${randomBetween(16, 28)}px;
+                font-size: ${randomBetween(14, 22)}px;
+                color: var(--deep-rose);
                 pointer-events: none;
                 z-index: 9999;
                 transform: translate(-50%, -50%);
@@ -1140,22 +1139,22 @@ const ResizeHandler = (() => {
 const SparkleCursor = (() => {
 
     let lastSparkleTime = 0;
-    const hearts = ['💕', '💗', '💖', '❤️', '✨'];
 
     const createCursorSparkle = (x, y) => {
         const now = Date.now();
         if (now - lastSparkleTime < 120) return;
         lastSparkleTime = now;
 
-        const el = document.createElement('span');
-        el.textContent = randomFrom(hearts);
+        const el = document.createElement('i');
+        el.className = `fas ${randomFrom(HEART_ICON_CLASSES)}`;
         el.style.cssText = `
             position: fixed;
             left: ${x}px;
             top: ${y}px;
             pointer-events: none;
             z-index: 9999;
-            font-size: ${randomBetween(12, 20)}px;
+            font-size: ${randomBetween(11, 17)}px;
+            color: var(--deep-rose);
             transform: translate(-50%, -50%);
             user-select: none;
         `;
@@ -1164,7 +1163,7 @@ const SparkleCursor = (() => {
 
         el.animate([
             {
-                opacity: 1,
+                opacity: 0.9,
                 transform: `translate(-50%, -50%) scale(1) translateY(0px)`
             },
             {
@@ -1202,9 +1201,9 @@ const PageLoad = (() => {
         loader.id = 'pageLoader';
         loader.innerHTML = `
             <div class="loader-content">
-                <div class="loader-heart">💖</div>
+                <i class="fas fa-heart loader-heart"></i>
                 <p class="loader-text">Preparing something special...</p>
-                <p class="loader-name">For Cherry Ann 🎂</p>
+                <p class="loader-name">For Cherry Ann</p>
             </div>
         `;
         loader.style.cssText = `
@@ -1221,37 +1220,6 @@ const PageLoad = (() => {
             transition: opacity 0.8s ease, transform 0.8s ease;
         `;
 
-        const style = document.createElement('style');
-        style.textContent = `
-            .loader-content {
-                text-align: center;
-                color: white;
-                padding: 0 24px;
-            }
-            .loader-heart {
-                font-size: 4rem;
-                animation: loaderPulse 1s ease-in-out infinite;
-                display: block;
-                margin-bottom: 20px;
-            }
-            .loader-text {
-                font-family: 'Poppins', sans-serif;
-                font-size: 1rem;
-                color: #FFB6C1;
-                margin-bottom: 8px;
-            }
-            .loader-name {
-                font-family: 'Dancing Script', cursive;
-                font-size: 2rem;
-                color: #FFD700;
-            }
-            @keyframes loaderPulse {
-                0%, 100% { transform: scale(1); }
-                50% { transform: scale(1.3); }
-            }
-        `;
-
-        document.head.appendChild(style);
         document.body.appendChild(loader);
         document.body.style.overflow = 'hidden';
 
@@ -1304,52 +1272,20 @@ const ActiveNavLink = (() => {
         });
 
         navLinks.forEach(link => {
-            link.classList.remove('active-nav');
-            if (link.getAttribute('href') === `#${currentSection}`) {
-                link.classList.add('active-nav');
-            }
+            link.classList.toggle(
+                'active-nav',
+                link.getAttribute('href') === `#${currentSection}`
+            );
         });
     };
 
     const init = () => {
         window.addEventListener('scroll', update, { passive: true });
-
-        const style = document.createElement('style');
-        style.textContent = `
-            .nav-links a.active-nav {
-                color: var(--deep-rose) !important;
-            }
-            .nav-links a.active-nav::after {
-                width: 100% !important;
-            }
-        `;
-        document.head.appendChild(style);
+        update();
     };
 
     return { init };
 
-})();
-
-/* ============================================
-   TOUCH HOVER STYLE FOR MEMORY CARDS
-   ============================================ */
-const TouchHoverStyle = (() => {
-    const init = () => {
-        const style = document.createElement('style');
-        style.textContent = `
-            .memory-card.touch-hover .memory-card-overlay {
-                opacity: 1;
-            }
-            .memory-card.touch-hover .memory-card-overlay i {
-                transform: scale(1);
-            }
-            .memory-card.touch-hover {
-                transform: translateY(-8px) scale(1.02);
-            }
-        `;
-        document.head.appendChild(style);
-    };
-    return { init };
 })();
 
 /* ============================================
@@ -1374,17 +1310,15 @@ const App = (() => {
         SparkleCursor.init();
         ActiveNavLink.init();
 
-        TouchHoverStyle.init();
-
         ResizeHandler.init();
 
         console.log(
-            '%c💕 Happy Birthday, Cherry Ann! 💕',
+            '%cHappy Birthday, Cherry Ann!',
             'color: #E75480; font-size: 20px; font-weight: bold; ' +
             'font-family: Georgia, serif; padding: 8px;'
         );
         console.log(
-            '%cMade with infinite love by Hanz Dee Dalmino ❤️',
+            '%cMade with infinite love by Hanz Dee Dalmino',
             'color: #FFD700; font-size: 14px; font-family: Georgia, serif;'
         );
     };
