@@ -1,9 +1,3 @@
-/* ============================================
-   BIRTHDAY WEBSITE - script.js
-   For: Cherry Ann M. Casinto
-   From: Hanz Dee Dalmino
-   ============================================ */
-
 'use strict';
 
 /* ============================================
@@ -31,49 +25,40 @@ const COLORS = {
    DOM ELEMENT REFERENCES
    ============================================ */
 const DOM = {
-    // Navigation
     mainNav:            document.getElementById('mainNav'),
     navToggle:          document.getElementById('navToggle'),
     mobileMenu:         document.getElementById('mobileMenu'),
     mobileMenuClose:    document.getElementById('mobileMenuClose'),
     mobileMenuLinks:    document.querySelectorAll('.mobile-menu a'),
 
-    // Hero
     celebrateBtn:       document.getElementById('celebrateBtn'),
     confettiCanvas:     document.getElementById('confettiCanvas'),
     scrollIndicator:    document.getElementById('scrollIndicator'),
 
-    // Floating Hearts
     floatingHeartsContainer: document.getElementById('floatingHearts'),
 
-    // Wishes Form
     wishesForm:         document.getElementById('wishesForm'),
     wishName:           document.getElementById('wishName'),
     wishMessage:        document.getElementById('wishMessage'),
     thankYouMessage:    document.getElementById('thankYouMessage'),
     sendAnotherBtn:     document.getElementById('sendAnotherBtn'),
 
-    // Custom Alert
     customAlert:        document.getElementById('customAlert'),
     alertTitle:         document.getElementById('alertTitle'),
     alertMessage:       document.getElementById('alertMessage'),
     alertCloseBtn:      document.getElementById('alertCloseBtn'),
 
-    // Celebration Overlay
     celebrationOverlay:   document.getElementById('celebrationOverlay'),
     closeCelebrationBtn:  document.getElementById('closeCelebrationBtn'),
     balloonCanvas:        document.getElementById('balloonCanvas'),
 
-    // Back To Top
     backToTop:          document.getElementById('backToTop'),
 
-    // Reveal elements
     revealElements:     document.querySelectorAll(
         '.letter-card, .memory-card, .celebration-wrapper, ' +
         '.wishes-form-wrapper, .carousel-container'
     ),
 
-    // Carousel
     carouselTrack:      document.getElementById('carouselTrack'),
     carouselPrev:       document.getElementById('carouselPrev'),
     carouselNext:       document.getElementById('carouselNext'),
@@ -85,19 +70,8 @@ const DOM = {
 /* ============================================
    UTILITY FUNCTIONS
    ============================================ */
-
-/**
- * Pad a number with leading zero if needed
- * @param {number} num
- * @returns {string}
- */
 const padNumber = (num) => String(num).padStart(2, '0');
 
-/**
- * Show a custom alert modal
- * @param {string} title
- * @param {string} message
- */
 const showAlert = (title, message) => {
     DOM.alertTitle.textContent   = title;
     DOM.alertMessage.textContent = message;
@@ -105,27 +79,13 @@ const showAlert = (title, message) => {
     document.body.style.overflow = 'hidden';
 };
 
-/**
- * Hide the custom alert modal
- */
 const hideAlert = () => {
     DOM.customAlert.classList.remove('active');
     document.body.style.overflow = '';
 };
 
-/**
- * Generate a random number between min and max
- * @param {number} min
- * @param {number} max
- * @returns {number}
- */
 const randomBetween = (min, max) => Math.random() * (max - min) + min;
 
-/**
- * Pick a random item from an array
- * @param {Array} arr
- * @returns {*}
- */
 const randomFrom = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
 /* ============================================
@@ -135,9 +95,6 @@ const Navigation = (() => {
 
     let mobileOverlay = null;
 
-    /**
-     * Create a mobile overlay element
-     */
     const createOverlay = () => {
         mobileOverlay = document.createElement('div');
         mobileOverlay.classList.add('mobile-menu-overlay');
@@ -145,27 +102,18 @@ const Navigation = (() => {
         mobileOverlay.addEventListener('click', closeMobileMenu);
     };
 
-    /**
-     * Open the mobile menu
-     */
     const openMobileMenu = () => {
         DOM.mobileMenu.classList.add('active');
         mobileOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
     };
 
-    /**
-     * Close the mobile menu
-     */
     const closeMobileMenu = () => {
         DOM.mobileMenu.classList.remove('active');
         mobileOverlay.classList.remove('active');
         document.body.style.overflow = '';
     };
 
-    /**
-     * Handle scroll - add/remove scrolled class to nav
-     */
     const handleScroll = () => {
         if (window.scrollY > 50) {
             DOM.mainNav.classList.add('scrolled');
@@ -174,21 +122,16 @@ const Navigation = (() => {
         }
     };
 
-    /**
-     * Initialize navigation
-     */
     const init = () => {
         createOverlay();
 
         DOM.navToggle.addEventListener('click', openMobileMenu);
         DOM.mobileMenuClose.addEventListener('click', closeMobileMenu);
 
-        // Close mobile menu when any link is clicked
         DOM.mobileMenuLinks.forEach(link => {
             link.addEventListener('click', closeMobileMenu);
         });
 
-        // Nav links smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', (e) => {
                 const href = anchor.getAttribute('href');
@@ -207,7 +150,7 @@ const Navigation = (() => {
         });
 
         window.addEventListener('scroll', handleScroll, { passive: true });
-        handleScroll(); // Run on init
+        handleScroll();
     };
 
     return { init };
@@ -221,9 +164,6 @@ const FloatingHearts = (() => {
 
     const heartSymbols = ['❤', '♥', '💕', '💗', '💖', '💓', '💞'];
 
-    /**
-     * Create a single floating heart element
-     */
     const createHeart = () => {
         if (!DOM.floatingHeartsContainer) return;
 
@@ -245,7 +185,6 @@ const FloatingHearts = (() => {
 
         DOM.floatingHeartsContainer.appendChild(heart);
 
-        // Remove and recreate heart after animation completes
         const totalTime = (duration + delay) * 1000;
         setTimeout(() => {
             heart.remove();
@@ -253,9 +192,6 @@ const FloatingHearts = (() => {
         }, totalTime);
     };
 
-    /**
-     * Initialize floating hearts
-     */
     const init = () => {
         for (let i = 0; i < CONFIG.floatingHeartsCount; i++) {
             createHeart();
@@ -316,16 +252,11 @@ const ConfettiAnimation = (() => {
             this.angle   += this.spin;
             this.opacity -= this.fade;
 
-            // Reset if out of bounds or fully transparent
             if (this.y > this.canvasHeight + 50 || this.opacity <= 0) {
                 this.reset();
             }
         }
 
-        /**
-         * Draw a heart shape on canvas
-         * @param {CanvasRenderingContext2D} ctx
-         */
         drawHeart(ctx) {
             const s = this.size;
             ctx.save();
@@ -342,10 +273,6 @@ const ConfettiAnimation = (() => {
             ctx.restore();
         }
 
-        /**
-         * Draw a circle shape on canvas
-         * @param {CanvasRenderingContext2D} ctx
-         */
         drawCircle(ctx) {
             ctx.save();
             ctx.beginPath();
@@ -356,10 +283,6 @@ const ConfettiAnimation = (() => {
             ctx.restore();
         }
 
-        /**
-         * Draw a rectangle shape on canvas
-         * @param {CanvasRenderingContext2D} ctx
-         */
         drawRect(ctx) {
             ctx.save();
             ctx.translate(this.x, this.y);
@@ -370,10 +293,6 @@ const ConfettiAnimation = (() => {
             ctx.restore();
         }
 
-        /**
-         * Draw the particle based on its shape
-         * @param {CanvasRenderingContext2D} ctx
-         */
         draw(ctx) {
             if (this.shape === 'heart')  { this.drawHeart(ctx); }
             if (this.shape === 'circle') { this.drawCircle(ctx); }
@@ -381,9 +300,6 @@ const ConfettiAnimation = (() => {
         }
     }
 
-    /**
-     * Resize the canvas to match the hero section
-     */
     const resizeCanvas = () => {
         if (!DOM.confettiCanvas) return;
         const hero = document.getElementById('hero');
@@ -391,9 +307,6 @@ const ConfettiAnimation = (() => {
         DOM.confettiCanvas.height = hero.offsetHeight;
     };
 
-    /**
-     * Main animation loop
-     */
     const animate = () => {
         if (!isRunning) return;
 
@@ -407,9 +320,6 @@ const ConfettiAnimation = (() => {
         animFrame = requestAnimationFrame(animate);
     };
 
-    /**
-     * Stop and clean up confetti
-     */
     const stop = () => {
         isRunning = false;
         cancelAnimationFrame(animFrame);
@@ -419,9 +329,6 @@ const ConfettiAnimation = (() => {
         particles = [];
     };
 
-    /**
-     * Start the confetti animation
-     */
     const start = () => {
         if (isRunning) stop();
         if (!DOM.confettiCanvas) return;
@@ -437,7 +344,6 @@ const ConfettiAnimation = (() => {
 
         animate();
 
-        // Auto stop after duration
         setTimeout(stop, CONFIG.confettiDuration);
     };
 
@@ -492,17 +398,12 @@ const CelebrationAnimation = (() => {
             }
         }
 
-        /**
-         * Draw a heart-shaped balloon
-         * @param {CanvasRenderingContext2D} ctx
-         */
         draw(ctx) {
             const r = this.radius;
 
             ctx.save();
             ctx.globalAlpha = this.opacity;
 
-            // Draw string
             ctx.beginPath();
             ctx.moveTo(this.x, this.y + r);
             ctx.quadraticCurveTo(
@@ -515,7 +416,6 @@ const CelebrationAnimation = (() => {
             ctx.lineWidth   = 1.5;
             ctx.stroke();
 
-            // Draw heart balloon
             ctx.translate(this.x, this.y);
             ctx.beginPath();
             ctx.moveTo(0, -r * 0.4);
@@ -525,7 +425,6 @@ const CelebrationAnimation = (() => {
             ctx.fillStyle = this.color;
             ctx.fill();
 
-            // Shine effect
             ctx.beginPath();
             ctx.ellipse(-r * 0.3, -r * 0.3, r * 0.25, r * 0.15, -0.5, 0, Math.PI * 2);
             ctx.fillStyle = 'rgba(255,255,255,0.35)';
@@ -535,18 +434,12 @@ const CelebrationAnimation = (() => {
         }
     }
 
-    /**
-     * Resize the balloon canvas
-     */
     const resizeCanvas = () => {
         if (!DOM.balloonCanvas) return;
         DOM.balloonCanvas.width  = window.innerWidth;
         DOM.balloonCanvas.height = window.innerHeight;
     };
 
-    /**
-     * Animation loop for balloons
-     */
     const animate = () => {
         ctx.clearRect(0, 0, DOM.balloonCanvas.width, DOM.balloonCanvas.height);
         balloons.forEach(b => {
@@ -556,9 +449,6 @@ const CelebrationAnimation = (() => {
         animFrame = requestAnimationFrame(animate);
     };
 
-    /**
-     * Stop the balloon animation
-     */
     const stop = () => {
         cancelAnimationFrame(animFrame);
         if (ctx) {
@@ -567,9 +457,6 @@ const CelebrationAnimation = (() => {
         balloons = [];
     };
 
-    /**
-     * Start the balloon celebration
-     */
     const start = () => {
         if (!DOM.balloonCanvas) return;
         resizeCanvas();
@@ -580,7 +467,6 @@ const CelebrationAnimation = (() => {
             () => new Balloon(DOM.balloonCanvas.width, DOM.balloonCanvas.height)
         );
 
-        // Stagger balloon starting positions
         balloons.forEach((b) => {
             b.y = DOM.balloonCanvas.height + randomBetween(0, 600);
         });
@@ -597,9 +483,6 @@ const CelebrationAnimation = (() => {
    ============================================ */
 const Celebration = (() => {
 
-    /**
-     * Show the celebration overlay with animations
-     */
     const show = () => {
         DOM.celebrationOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -607,18 +490,12 @@ const Celebration = (() => {
         ConfettiAnimation.start();
     };
 
-    /**
-     * Hide the celebration overlay
-     */
     const hide = () => {
         DOM.celebrationOverlay.classList.remove('active');
         document.body.style.overflow = '';
         CelebrationAnimation.stop();
     };
 
-    /**
-     * Initialize celebration events
-     */
     const init = () => {
         if (DOM.celebrateBtn) {
             DOM.celebrateBtn.addEventListener('click', show);
@@ -628,14 +505,12 @@ const Celebration = (() => {
             DOM.closeCelebrationBtn.addEventListener('click', hide);
         }
 
-        // Close on overlay background click
         DOM.celebrationOverlay.addEventListener('click', (e) => {
             if (e.target === DOM.celebrationOverlay) {
                 hide();
             }
         });
 
-        // Close on Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 if (DOM.celebrationOverlay.classList.contains('active')) {
@@ -662,7 +537,6 @@ const WishCarousel = (() => {
     let autoPlayInterval = null;
     const AUTO_PLAY_DELAY = 5000;
 
-    // Hardcoded wishes from family
     const HARDCODED_WISHES = [
         {
             name: 'Baby Heart',
@@ -681,20 +555,12 @@ const WishCarousel = (() => {
         }
     ];
 
-    /**
-     * Get initials from name for avatar
-     * @param {string} name
-     * @returns {string}
-     */
     const getInitials = (name) => {
         const parts = name.split(' ');
         if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
         return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
     };
 
-    /**
-     * Load wishes from localStorage
-     */
     const loadWishes = () => {
         let stored = null;
         try {
@@ -714,14 +580,10 @@ const WishCarousel = (() => {
                 // Fall through to hardcoded
             }
         }
-        // If no stored wishes, use hardcoded ones
         wishes = HARDCODED_WISHES.map(w => ({ ...w }));
         saveWishes();
     };
 
-    /**
-     * Save wishes to localStorage
-     */
     const saveWishes = () => {
         try {
             localStorage.setItem('cherryWishes', JSON.stringify(wishes));
@@ -730,11 +592,6 @@ const WishCarousel = (() => {
         }
     };
 
-    /**
-     * Add a new wish
-     * @param {string} name
-     * @param {string} message
-     */
     const addWish = (name, message) => {
         wishes.push({
             name: name.trim(),
@@ -743,16 +600,9 @@ const WishCarousel = (() => {
         });
         saveWishes();
         renderCarousel();
-        // Go to the new slide
         goToSlide(wishes.length - 1);
     };
 
-    /**
-     * Create a slide element
-     * @param {object} wish
-     * @param {number} index
-     * @returns {HTMLElement}
-     */
     const createSlide = (wish, index) => {
         const slide = document.createElement('div');
         slide.className = 'carousel-slide';
@@ -779,47 +629,31 @@ const WishCarousel = (() => {
         return slide;
     };
 
-    /**
-     * Simple HTML escaping
-     * @param {string} str
-     * @returns {string}
-     */
     const escapeHtml = (str) => {
         const div = document.createElement('div');
         div.textContent = str;
         return div.innerHTML;
     };
 
-    /**
-     * Render the carousel
-     */
     const renderCarousel = () => {
         if (!DOM.carouselTrack) return;
 
-        // Clear track
         DOM.carouselTrack.innerHTML = '';
 
-        // Create slides
         wishes.forEach((wish, index) => {
             const slide = createSlide(wish, index);
             DOM.carouselTrack.appendChild(slide);
         });
 
-        // Update dots
         renderDots();
 
-        // Update counter
         if (DOM.totalSlidesSpan) {
             DOM.totalSlidesSpan.textContent = wishes.length;
         }
 
-        // Go to current slide
         goToSlide(currentIndex);
     };
 
-    /**
-     * Render dots
-     */
     const renderDots = () => {
         if (!DOM.carouselDots) return;
 
@@ -841,53 +675,36 @@ const WishCarousel = (() => {
         });
     };
 
-    /**
-     * Go to a specific slide
-     * @param {number} index
-     */
     const goToSlide = (index) => {
         if (wishes.length === 0) return;
 
-        // Wrap around
         if (index < 0) index = wishes.length - 1;
         if (index >= wishes.length) index = 0;
 
         currentIndex = index;
 
-        // Move track
         if (DOM.carouselTrack) {
             DOM.carouselTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
         }
 
-        // Update dots
         const dots = DOM.carouselDots.querySelectorAll('.carousel-dot');
         dots.forEach((dot, i) => {
             dot.classList.toggle('active', i === currentIndex);
         });
 
-        // Update counter
         if (DOM.currentSlideSpan) {
             DOM.currentSlideSpan.textContent = currentIndex + 1;
         }
     };
 
-    /**
-     * Go to next slide
-     */
     const nextSlide = () => {
         goToSlide(currentIndex + 1);
     };
 
-    /**
-     * Go to previous slide
-     */
     const prevSlide = () => {
         goToSlide(currentIndex - 1);
     };
 
-    /**
-     * Start auto-play
-     */
     const startAutoPlay = () => {
         if (wishes.length <= 1) return;
         if (autoPlayInterval) {
@@ -896,16 +713,10 @@ const WishCarousel = (() => {
         autoPlayInterval = setInterval(nextSlide, AUTO_PLAY_DELAY);
     };
 
-    /**
-     * Reset auto-play
-     */
     const resetAutoPlay = () => {
         startAutoPlay();
     };
 
-    /**
-     * Pause auto-play
-     */
     const pauseAutoPlay = () => {
         if (autoPlayInterval) {
             clearInterval(autoPlayInterval);
@@ -913,14 +724,10 @@ const WishCarousel = (() => {
         }
     };
 
-    /**
-     * Initialize the carousel
-     */
     const init = () => {
         loadWishes();
         renderCarousel();
 
-        // Event listeners
         if (DOM.carouselPrev) {
             DOM.carouselPrev.addEventListener('click', () => {
                 prevSlide();
@@ -935,17 +742,14 @@ const WishCarousel = (() => {
             });
         }
 
-        // Pause on hover
         const container = document.getElementById('wishCarousel');
         if (container) {
             container.addEventListener('mouseenter', pauseAutoPlay);
             container.addEventListener('mouseleave', startAutoPlay);
-            // Touch support
             container.addEventListener('touchstart', pauseAutoPlay, { passive: true });
             container.addEventListener('touchend', startAutoPlay, { passive: true });
         }
 
-        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowLeft') {
                 prevSlide();
@@ -959,11 +763,6 @@ const WishCarousel = (() => {
         startAutoPlay();
     };
 
-    /**
-     * Add a new wish from form
-     * @param {string} name
-     * @param {string} message
-     */
     const addWishFromForm = (name, message) => {
         addWish(name, message);
     };
@@ -977,10 +776,6 @@ const WishCarousel = (() => {
    ============================================ */
 const WishesForm = (() => {
 
-    /**
-     * Handle form submission
-     * @param {Event} e
-     */
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -995,13 +790,10 @@ const WishesForm = (() => {
             return;
         }
 
-        // Add wish to carousel
         WishCarousel.addWishFromForm(name, message);
 
-        // Show thank you overlay within the form
         DOM.thankYouMessage.classList.add('active');
 
-        // Also show the sweet alert
         setTimeout(() => {
             showAlert(
                 'Love Sent! 💌',
@@ -1010,20 +802,13 @@ const WishesForm = (() => {
             );
         }, 500);
 
-        // Reset the form
         DOM.wishesForm.reset();
     };
 
-    /**
-     * Handle "Send Another" button click
-     */
     const handleSendAnother = () => {
         DOM.thankYouMessage.classList.remove('active');
     };
 
-    /**
-     * Initialize the form
-     */
     const init = () => {
         if (DOM.wishesForm) {
             DOM.wishesForm.addEventListener('submit', handleSubmit);
@@ -1033,12 +818,10 @@ const WishesForm = (() => {
             DOM.sendAnotherBtn.addEventListener('click', handleSendAnother);
         }
 
-        // Alert close button
         if (DOM.alertCloseBtn) {
             DOM.alertCloseBtn.addEventListener('click', hideAlert);
         }
 
-        // Close alert on background click
         DOM.customAlert.addEventListener('click', (e) => {
             if (e.target === DOM.customAlert) {
                 hideAlert();
@@ -1055,9 +838,6 @@ const WishesForm = (() => {
    ============================================ */
 const BackToTop = (() => {
 
-    /**
-     * Handle scroll visibility
-     */
     const handleScroll = () => {
         if (window.scrollY > CONFIG.scrollThreshold) {
             DOM.backToTop.classList.add('visible');
@@ -1066,9 +846,6 @@ const BackToTop = (() => {
         }
     };
 
-    /**
-     * Scroll back to top
-     */
     const scrollToTop = () => {
         window.scrollTo({
             top: 0,
@@ -1076,15 +853,12 @@ const BackToTop = (() => {
         });
     };
 
-    /**
-     * Initialize back to top
-     */
     const init = () => {
         if (!DOM.backToTop) return;
 
         DOM.backToTop.addEventListener('click', scrollToTop);
         window.addEventListener('scroll', handleScroll, { passive: true });
-        handleScroll(); // Run on init
+        handleScroll();
     };
 
     return { init };
@@ -1096,15 +870,11 @@ const BackToTop = (() => {
    ============================================ */
 const ScrollReveal = (() => {
 
-    /**
-     * Add reveal class to all target elements
-     */
     const prepareElements = () => {
         DOM.revealElements.forEach((el) => {
             el.classList.add('reveal');
         });
 
-        // Also add to section headers and other elements
         document.querySelectorAll(
             '.section-header, .letter-card, .memory-card, ' +
             '.celebration-container, .wish-card, .wishes-form'
@@ -1115,9 +885,6 @@ const ScrollReveal = (() => {
         });
     };
 
-    /**
-     * Check which elements are in viewport and reveal them
-     */
     const checkReveal = () => {
         const elements = document.querySelectorAll('.reveal');
         const windowHeight = window.innerHeight;
@@ -1127,7 +894,6 @@ const ScrollReveal = (() => {
             const isVisible = rect.top < windowHeight - CONFIG.revealOffset;
 
             if (isVisible && !el.classList.contains('revealed')) {
-                // Stagger animation for grid items
                 const delay = el.closest('.memories-grid, .carousel-track')
                     ? index * 100
                     : 0;
@@ -1139,9 +905,6 @@ const ScrollReveal = (() => {
         });
     };
 
-    /**
-     * Initialize scroll reveal with IntersectionObserver if supported
-     */
     const init = () => {
         prepareElements();
 
@@ -1172,7 +935,6 @@ const ScrollReveal = (() => {
                 observer.observe(el);
             });
         } else {
-            // Fallback for older browsers
             window.addEventListener('scroll', checkReveal, { passive: true });
             checkReveal();
         }
@@ -1189,17 +951,12 @@ const ParallaxEffect = (() => {
 
     const heroContent = document.querySelector('.hero-content');
 
-    /**
-     * Handle mouse move for tilt effect
-     * @param {MouseEvent} e
-     */
     const handleMouseMove = (e) => {
         if (!heroContent) return;
 
         const hero = document.getElementById('hero');
         const rect = hero.getBoundingClientRect();
 
-        // Only apply when hero is in view
         if (rect.bottom < 0 || rect.top > window.innerHeight) return;
 
         const centerX = rect.width  / 2;
@@ -1219,9 +976,6 @@ const ParallaxEffect = (() => {
         heroContent.style.transition = 'transform 0.1s ease';
     };
 
-    /**
-     * Reset hero content tilt when mouse leaves
-     */
     const handleMouseLeave = () => {
         if (!heroContent) return;
         heroContent.style.transform = `
@@ -1233,10 +987,6 @@ const ParallaxEffect = (() => {
         heroContent.style.transition = 'transform 0.5s ease';
     };
 
-    /**
-     * Initialize parallax effect
-     * (Skip on touch devices)
-     */
     const init = () => {
         if (window.matchMedia('(hover: hover)').matches) {
             document.addEventListener('mousemove', handleMouseMove, { passive: true });
@@ -1253,9 +1003,6 @@ const ParallaxEffect = (() => {
    ============================================ */
 const MemoryCards = (() => {
 
-    /**
-     * Add touch support for hover effect on mobile
-     */
     const initTouchSupport = () => {
         const cards = document.querySelectorAll('.memory-card');
 
@@ -1272,9 +1019,6 @@ const MemoryCards = (() => {
         });
     };
 
-    /**
-     * Add click sparkle effect on memory cards
-     */
     const initClickEffect = () => {
         const cards = document.querySelectorAll('.memory-card');
 
@@ -1285,11 +1029,6 @@ const MemoryCards = (() => {
         });
     };
 
-    /**
-     * Create a sparkle effect at a given position
-     * @param {number} x
-     * @param {number} y
-     */
     const createSparkle = (x, y) => {
         const hearts = ['💕', '💗', '💖', '❤', '💓'];
 
@@ -1308,7 +1047,6 @@ const MemoryCards = (() => {
 
             document.body.appendChild(sparkle);
 
-            // Animate in random direction
             const angle   = randomBetween(0, Math.PI * 2);
             const distance = randomBetween(60, 130);
             const tx = Math.cos(angle) * distance;
@@ -1327,9 +1065,6 @@ const MemoryCards = (() => {
         }
     };
 
-    /**
-     * Initialize memory card interactions
-     */
     const init = () => {
         initTouchSupport();
         initClickEffect();
@@ -1344,9 +1079,6 @@ const MemoryCards = (() => {
    ============================================ */
 const ScrollIndicator = (() => {
 
-    /**
-     * Hide scroll indicator after user scrolls
-     */
     const init = () => {
         if (!DOM.scrollIndicator) return;
 
@@ -1377,7 +1109,6 @@ const ResizeHandler = (() => {
     const handleResize = () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
-            // Recalculate balloon canvas size if celebration is open
             if (DOM.celebrationOverlay.classList.contains('active')) {
                 if (DOM.balloonCanvas) {
                     DOM.balloonCanvas.width  = window.innerWidth;
@@ -1385,7 +1116,6 @@ const ResizeHandler = (() => {
                 }
             }
 
-            // Recalculate confetti canvas
             if (DOM.confettiCanvas) {
                 const hero = document.getElementById('hero');
                 if (hero) {
@@ -1414,7 +1144,7 @@ const SparkleCursor = (() => {
 
     const createCursorSparkle = (x, y) => {
         const now = Date.now();
-        if (now - lastSparkleTime < 120) return; // Throttle
+        if (now - lastSparkleTime < 120) return;
         lastSparkleTime = now;
 
         const el = document.createElement('span');
@@ -1450,9 +1180,6 @@ const SparkleCursor = (() => {
         setTimeout(() => el.remove(), 750);
     };
 
-    /**
-     * Initialize cursor sparkle on desktop only
-     */
     const init = () => {
         if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
             document.addEventListener('mousemove', (e) => {
@@ -1470,9 +1197,6 @@ const SparkleCursor = (() => {
    ============================================ */
 const PageLoad = (() => {
 
-    /**
-     * Create a loading screen
-     */
     const createLoader = () => {
         const loader = document.createElement('div');
         loader.id = 'pageLoader';
@@ -1502,6 +1226,7 @@ const PageLoad = (() => {
             .loader-content {
                 text-align: center;
                 color: white;
+                padding: 0 24px;
             }
             .loader-heart {
                 font-size: 4rem;
@@ -1533,9 +1258,6 @@ const PageLoad = (() => {
         return loader;
     };
 
-    /**
-     * Initialize page load animation
-     */
     const init = () => {
         const loader = createLoader();
 
@@ -1592,7 +1314,6 @@ const ActiveNavLink = (() => {
     const init = () => {
         window.addEventListener('scroll', update, { passive: true });
 
-        // Add active nav style dynamically
         const style = document.createElement('style');
         style.textContent = `
             .nav-links a.active-nav {
@@ -1636,14 +1357,9 @@ const TouchHoverStyle = (() => {
    ============================================ */
 const App = (() => {
 
-    /**
-     * Initialize all modules
-     */
     const init = () => {
-        // Page loader first
         PageLoad.init();
 
-        // Core functionality
         Navigation.init();
         FloatingHearts.init();
         BackToTop.init();
@@ -1653,16 +1369,13 @@ const App = (() => {
         WishesForm.init();
         WishCarousel.init();
 
-        // Interactions
         MemoryCards.init();
         ParallaxEffect.init();
         SparkleCursor.init();
         ActiveNavLink.init();
 
-        // Style helpers
         TouchHoverStyle.init();
 
-        // Window resize
         ResizeHandler.init();
 
         console.log(
