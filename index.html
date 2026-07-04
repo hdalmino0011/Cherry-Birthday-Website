@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="A birthday love letter website for Cherry Ann M. Casinto from Hanz Dee Dalmino">
-    <title>Happy Birthday, Cherry Ann! 💕</title>
+    <title>Happy Birthday, Cherry Ann</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Poppins:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Dancing+Script:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -29,7 +29,7 @@
     <!-- ============================================ -->
     <nav class="nav" id="mainNav">
         <a href="#hero" class="nav-logo">
-            <i class="fas fa-heart"></i> Cherry Ann's Day
+            <i class="fas fa-heart" aria-hidden="true"></i> Cherry Ann's Day
         </a>
         <div class="nav-links">
             <a href="#letter">Letter</a>
@@ -44,10 +44,10 @@
 
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
-        <a href="#letter">💌 Love Letter</a>
-        <a href="#memories">📸 Memories</a>
-        <a href="#celebration">🎉 Celebration</a>
-        <a href="#wishes">💌 Send Wishes</a>
+        <a href="#letter"><i class="fas fa-envelope-open-text"></i> Love Letter</a>
+        <a href="#memories"><i class="fas fa-images"></i> Memories</a>
+        <a href="#celebration"><i class="fas fa-cake-candles"></i> Celebration</a>
+        <a href="#wishes"><i class="fas fa-paper-plane"></i> Send Wishes</a>
         <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
             <i class="fas fa-times"></i>
         </button>
@@ -60,32 +60,34 @@
         <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
 
         <div class="hero-content">
-            <div class="hero-heart-top">
+            <div class="hero-heart-top" aria-hidden="true">
                 <i class="fas fa-heart"></i>
             </div>
 
             <p class="hero-subtitle">To My Dearest</p>
             <h1 class="hero-name">Cherry Ann</h1>
-            <h2 class="hero-title">Happy Birthday!</h2>
+            <h2 class="hero-title">Happy Birthday</h2>
+
+            <div class="hero-divider" aria-hidden="true"><span></span><i class="fas fa-heart"></i><span></span></div>
+
             <p class="hero-date">
                 <i class="fas fa-calendar-check"></i>
                 July 5, 2026
             </p>
             <p class="hero-message">
-                "Every day with you is a gift. You are my sunshine,
-                my love, my everything."
+                Every day with you is a gift. You are my sunshine,
+                my love, my everything.
             </p>
 
             <button class="btn-celebrate" id="celebrateBtn">
                 <i class="fas fa-heart"></i>
-                Celebrate Our Love
+                <span>Celebrate Our Love</span>
                 <i class="fas fa-heart"></i>
             </button>
 
             <div class="hero-signature">
                 <p>With all my love,</p>
                 <p class="hero-boyfriend">Hanz Dee Dalmino</p>
-                <i class="fas fa-heart pulse-heart"></i>
             </div>
         </div>
 
@@ -101,16 +103,16 @@
     <section class="section love-letter-section" id="letter">
         <div class="container">
             <div class="section-header">
-                <i class="fas fa-envelope-open-text section-icon"></i>
+                <i class="fas fa-envelope-open-text section-icon" aria-hidden="true"></i>
                 <h2 class="section-title">A Letter From My Heart</h2>
-                <div class="heart-divider">
+                <div class="heart-divider" aria-hidden="true">
                     <span></span><i class="fas fa-heart"></i><span></span>
                 </div>
             </div>
 
             <div class="letter-card">
                 <div class="letter-card-inner">
-                    <div class="letter-stamp">
+                    <div class="letter-stamp" aria-hidden="true">
                         <i class="fas fa-heart"></i>
                     </div>
                     <p class="letter-date">July 5, 2026</p>
@@ -145,9 +147,9 @@
                     </p>
 
                     <div class="letter-quote">
-                        <i class="fas fa-quote-left"></i>
-                        <p>"I knew the second I met you that there was something about you I needed. Turns out it wasn't something about you at all. It was just you."</p>
-                        <span>— Jamie McGuire</span>
+                        <i class="fas fa-quote-left" aria-hidden="true"></i>
+                        <p>I knew the second I met you that there was something about you I needed. Turns out it wasn't something about you at all. It was just you.</p>
+                        <span>&mdash; Jamie McGuire</span>
                     </div>
 
                     <p class="letter-body">
@@ -159,7 +161,7 @@
                     </p>
                     <p class="letter-signature">
                         Hanz Dee Dalmino
-                        <i class="fas fa-heart pulse-heart"></i>
+                        <i class="fas fa-heart pulse-heart" aria-hidden="true"></i>
                     </p>
                 </div>
             </div>
@@ -172,9 +174,9 @@
     <section class="section memories-section" id="memories">
         <div class="container">
             <div class="section-header">
-                <i class="fas fa-images section-icon"></i>
+                <i class="fas fa-images section-icon" aria-hidden="true"></i>
                 <h2 class="section-title">Our Beautiful Memories</h2>
-                <div class="heart-divider">
+                <div class="heart-divider" aria-hidden="true">
                     <span></span><i class="fas fa-heart"></i><span></span>
                 </div>
                 <p class="section-subtitle">
@@ -278,9 +280,9 @@
     <section class="section celebration-section" id="celebration">
         <div class="container">
             <div class="section-header">
-                <i class="fas fa-cake-candles section-icon"></i>
-                <h2 class="section-title">Today Is Your Day!</h2>
-                <div class="heart-divider">
+                <i class="fas fa-cake-candles section-icon" aria-hidden="true"></i>
+                <h2 class="section-title">Today Is Your Day</h2>
+                <div class="heart-divider" aria-hidden="true">
                     <span></span><i class="fas fa-heart"></i><span></span>
                 </div>
                 <p class="section-subtitle">
@@ -334,24 +336,24 @@
                         </div>
 
                         <h2 class="celebration-title">
-                            Happy Birthday, Cherry Ann!
+                            Happy Birthday, Cherry Ann
                         </h2>
                         <p class="celebration-date">
                             <i class="fas fa-calendar-check"></i>
                             July 5, 2026
                         </p>
                         <div class="celebration-message-box">
-                            <p>
-                                🎉 Today is YOUR day, my love! 🎉
+                            <p class="celebration-eyebrow">
+                                <i class="fas fa-star"></i> Today is your day, my love <i class="fas fa-star"></i>
                             </p>
                             <p>
                                 The world celebrates because you were born.
                                 I celebrate because you are mine.
                             </p>
-                            <p>
-                                <i class="fas fa-heart" style="color: #FFB6C1;"></i>
-                                Happy Birthday, Baby Loveeeloveee Cherry!
-                                <i class="fas fa-heart" style="color: #FFB6C1;"></i>
+                            <p class="celebration-closing">
+                                <i class="fas fa-heart"></i>
+                                Happy Birthday, Baby Loveeeloveee Cherry
+                                <i class="fas fa-heart"></i>
                             </p>
                         </div>
 
@@ -387,9 +389,9 @@
     <section class="section wishes-section" id="wishes">
         <div class="container">
             <div class="section-header">
-                <i class="fas fa-paper-plane section-icon"></i>
+                <i class="fas fa-paper-plane section-icon" aria-hidden="true"></i>
                 <h2 class="section-title">Send Your Love</h2>
-                <div class="heart-divider">
+                <div class="heart-divider" aria-hidden="true">
                     <span></span><i class="fas fa-heart"></i><span></span>
                 </div>
                 <p class="section-subtitle">
@@ -437,8 +439,8 @@
                     <div class="thank-you-message" id="thankYouMessage">
                         <div class="thank-you-inner">
                             <i class="fas fa-heart pulse-heart"></i>
-                            <h3>Thank You!</h3>
-                            <p>Your love note has been sent! Cherry Ann's heart is full. 💕</p>
+                            <h3>Thank You</h3>
+                            <p>Your love note has been sent. Cherry Ann's heart is full.</p>
                             <button class="btn-send-another" id="sendAnotherBtn">
                                 <i class="fas fa-plus"></i> Send Another
                             </button>
@@ -492,12 +494,12 @@
                     by
                     <span class="footer-highlight">Hanz Dee Dalmino</span>
                 </p>
-                <div class="footer-heart">
+                <div class="footer-heart" aria-hidden="true">
                     <i class="fas fa-heart pulse-heart"></i>
                 </div>
                 <p class="footer-subtext">
                     &copy; 2026 &bull; A love story in the making &bull;
-                    <i class="fas fa-heart" style="color: #FFB6C1;"></i>
+                    <i class="fas fa-heart" aria-hidden="true"></i>
                 </p>
             </div>
         </div>
@@ -530,8 +532,9 @@
     <div class="celebration-overlay" id="celebrationOverlay">
         <canvas id="balloonCanvas"></canvas>
         <div class="celebration-message">
-            <h2>🎂 Happy Birthday, Cherry Ann! 🎂</h2>
-            <p>Wishing you all the love and happiness in the world!</p>
+            <i class="fas fa-cake-candles celebration-overlay-icon" aria-hidden="true"></i>
+            <h2>Happy Birthday, Cherry Ann</h2>
+            <p>Wishing you all the love and happiness in the world</p>
             <button class="btn-close-celebration" id="closeCelebrationBtn">
                 <i class="fas fa-heart"></i> Thank You, My Love
             </button>
