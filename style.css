@@ -7,7 +7,6 @@
     --warm-coral: #FF7F50;
     --bright-gold: #FFD700;
     --lavender: #DDA0DD;
-    --leaf-green: #8FBF8F;
     --deep-navy: #1A1A2E;
     --white: #FFFFFF;
     --off-white: #FFF5F7;
@@ -17,12 +16,12 @@
     --text-medium: #5A3D5E;
     --text-light: #8B6B8F;
     --card-bg: rgba(255, 255, 255, 0.92);
-    --glass-bg: rgba(255, 255, 255, 0.15);
     --shadow-soft: 0 4px 20px rgba(231, 84, 128, 0.15);
     --shadow-medium: 0 8px 32px rgba(231, 84, 128, 0.2);
     --shadow-strong: 0 12px 48px rgba(231, 84, 128, 0.3);
 
-    --font-romantic: 'Dancing Script', 'Great Vibes', cursive;
+    --font-romantic: 'Dancing Script', cursive;
+    --font-quote: 'Cormorant Garamond', serif;
     --font-heading: 'Poppins', sans-serif;
     --font-body: 'Quicksand', sans-serif;
 
@@ -35,8 +34,7 @@
     --transition-medium: 0.4s ease;
     --transition-slow: 0.6s ease;
 
-    /* Fluid side gutter used everywhere instead of a fixed 24px,
-       so nothing ever touches the screen edge on small phones */
+    /* Fluid side gutter so nothing ever touches the screen edge on small phones */
     --gutter: clamp(16px, 5vw, 24px);
 }
 
@@ -49,12 +47,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* THE KEY OVERFLOW FIX:
-       flex/grid children default to min-width:auto, which lets long
-       unbroken text (names, messages, labels) force their parent
-       wider than the viewport. That's what was clipping the right
-       edge of the form/carousel on mobile. This resets the default
-       so every flex/grid item can shrink to fit its container. */
+    /* Lets flex/grid children shrink below their content's natural width,
+       preventing long unbroken text from forcing horizontal overflow. */
     min-width: 0;
 }
 
@@ -137,12 +131,15 @@ input, textarea {
 .floating-heart {
     position: absolute;
     bottom: -50px;
-    font-size: 20px;
-    opacity: 0.15;
+    opacity: 0;
     animation: floatHeart linear infinite;
     color: var(--deep-rose);
-    filter: blur(0.5px);
-    will-change: transform;
+    will-change: transform, opacity;
+}
+
+.floating-heart i {
+    display: block;
+    filter: blur(0.3px);
 }
 
 @keyframes floatHeart {
@@ -150,10 +147,10 @@ input, textarea {
         transform: translateY(0) rotate(0deg) scale(1);
         opacity: 0;
     }
-    10% { opacity: 0.15; }
-    90% { opacity: 0.15; }
+    10% { opacity: 0.14; }
+    90% { opacity: 0.14; }
     100% {
-        transform: translateY(-110vh) rotate(720deg) scale(0.5);
+        transform: translateY(-110vh) rotate(35deg) scale(0.6);
         opacity: 0;
     }
 }
@@ -216,6 +213,7 @@ body::before {
 
 .nav-logo {
     font-family: var(--font-romantic);
+    font-weight: 700;
     font-size: 1.5rem;
     color: var(--white);
     display: flex;
@@ -236,6 +234,7 @@ body::before {
     color: var(--bright-gold);
     animation: pulseHeart 1.5s ease-in-out infinite;
     flex-shrink: 0;
+    font-size: 0.85em;
 }
 
 .nav-links {
@@ -273,6 +272,18 @@ body::before {
 
 .nav-links a:hover::after { width: 100%; }
 .nav-links a:hover { color: var(--deep-rose); }
+
+.nav-links a.active-nav {
+    color: var(--deep-rose);
+}
+
+.nav-links a.active-nav::after {
+    width: 100%;
+}
+
+.nav.scrolled .nav-links a.active-nav {
+    color: var(--deep-rose);
+}
 
 .nav-toggle {
     display: none;
@@ -316,7 +327,16 @@ body::before {
     padding: 14px 16px;
     border-radius: 12px;
     transition: var(--transition-fast);
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.mobile-menu a i {
+    width: 20px;
+    text-align: center;
+    color: var(--bright-gold);
+    flex-shrink: 0;
 }
 
 .mobile-menu a:hover {
@@ -443,7 +463,7 @@ body::before {
     font-weight: 700;
     color: var(--white);
     line-height: 1.15;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     text-shadow: 0 4px 30px rgba(255, 182, 193, 0.4);
     animation: fadeInUp 1s ease 0.4s both;
     word-break: break-word;
@@ -455,9 +475,34 @@ body::before {
     font-size: clamp(1.7rem, 6vw, 3.5rem);
     font-weight: 700;
     color: var(--bright-gold);
-    margin-bottom: 16px;
+    margin-bottom: 18px;
     text-shadow: 0 4px 30px rgba(255, 215, 0, 0.3);
     animation: fadeInUp 1s ease 0.6s both;
+}
+
+.hero-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin: 0 auto 22px;
+    max-width: 220px;
+    animation: fadeInUp 1s ease 0.7s both;
+}
+
+.hero-divider span {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.6));
+}
+
+.hero-divider span:last-child {
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.6), transparent);
+}
+
+.hero-divider i {
+    color: var(--bright-gold);
+    font-size: 0.7rem;
 }
 
 .hero-date {
@@ -477,11 +522,12 @@ body::before {
 .hero-date i { color: var(--bright-gold); }
 
 .hero-message {
-    font-family: var(--font-body);
-    font-size: 1.1rem;
-    color: var(--soft-pink);
+    font-family: var(--font-quote);
     font-style: italic;
-    line-height: 1.8;
+    font-weight: 500;
+    font-size: 1.35rem;
+    color: var(--soft-pink);
+    line-height: 1.7;
     margin-bottom: 40px;
     max-width: 600px;
     margin-left: auto;
@@ -578,6 +624,7 @@ body::before {
     align-items: center;
     gap: 8px;
     animation: bounce 2s ease-in-out infinite;
+    transition: opacity 0.3s ease;
 }
 
 .scroll-indicator span {
@@ -724,20 +771,23 @@ body::before {
 .letter-date {
     font-family: var(--font-heading);
     font-size: 0.85rem;
+    letter-spacing: 0.5px;
     color: var(--text-light);
     margin-bottom: 16px;
+    text-transform: uppercase;
 }
 
 .letter-greeting {
     font-family: var(--font-romantic);
-    font-size: 2rem;
+    font-weight: 600;
+    font-size: 2.1rem;
     color: var(--deep-rose);
     margin-bottom: 24px;
     word-wrap: break-word;
 }
 
 .letter-body {
-    font-size: 1rem;
+    font-size: 1.02rem;
     line-height: 1.9;
     color: var(--text-medium);
     margin-bottom: 20px;
@@ -748,36 +798,36 @@ body::before {
     background: linear-gradient(135deg, var(--light-pink), rgba(221, 160, 221, 0.2));
     border-left: 4px solid var(--deep-rose);
     border-radius: 0 12px 12px 0;
-    padding: 24px 28px;
+    padding: 28px 28px 24px 52px;
     margin: 32px 0;
     position: relative;
 }
 
 .letter-quote i {
     position: absolute;
-    top: 12px;
-    left: 16px;
-    font-size: 1.5rem;
-    color: var(--soft-pink);
-    opacity: 0.5;
+    top: 20px;
+    left: 18px;
+    font-size: 1.3rem;
+    color: var(--deep-rose);
+    opacity: 0.35;
 }
 
 .letter-quote p {
-    font-family: var(--font-body);
-    font-size: 1rem;
+    font-family: var(--font-quote);
+    font-size: 1.3rem;
     font-style: italic;
-    color: var(--text-medium);
-    line-height: 1.8;
-    margin-bottom: 8px;
-    padding-left: 20px;
+    font-weight: 500;
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin-bottom: 10px;
 }
 
 .letter-quote span {
     font-family: var(--font-heading);
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
     color: var(--deep-rose);
     font-weight: 600;
-    padding-left: 20px;
     display: block;
 }
 
@@ -791,6 +841,7 @@ body::before {
 
 .letter-signature {
     font-family: var(--font-romantic);
+    font-weight: 700;
     font-size: 2.2rem;
     color: var(--deep-rose);
 }
@@ -828,7 +879,8 @@ body::before {
     box-shadow: var(--shadow-soft);
 }
 
-.memory-card:hover {
+.memory-card:hover,
+.memory-card.touch-hover {
     transform: translateY(-8px) scale(1.02);
     box-shadow: var(--shadow-medium);
 }
@@ -867,7 +919,8 @@ body::before {
     display: flex;
 }
 
-.memory-card:hover .memory-card-image img { transform: scale(1.08); }
+.memory-card:hover .memory-card-image img,
+.memory-card.touch-hover .memory-card-image img { transform: scale(1.08); }
 
 .memory-card-overlay {
     position: absolute;
@@ -891,8 +944,10 @@ body::before {
     transition: var(--transition-medium);
 }
 
-.memory-card:hover .memory-card-overlay { opacity: 1; }
-.memory-card:hover .memory-card-overlay i { transform: scale(1); }
+.memory-card:hover .memory-card-overlay,
+.memory-card.touch-hover .memory-card-overlay { opacity: 1; }
+.memory-card:hover .memory-card-overlay i,
+.memory-card.touch-hover .memory-card-overlay i { transform: scale(1); }
 
 .memory-card-caption {
     position: absolute;
@@ -997,8 +1052,8 @@ body::before {
 
 .celebration-title {
     font-family: var(--font-romantic);
-    font-size: clamp(1.9rem, 6vw, 3.2rem);
     font-weight: 700;
+    font-size: clamp(1.9rem, 6vw, 3.2rem);
     color: var(--bright-gold);
     margin-bottom: 12px;
     text-shadow: 0 2px 30px rgba(255, 215, 0, 0.3);
@@ -1034,8 +1089,27 @@ body::before {
     margin-bottom: 8px;
 }
 
+.celebration-eyebrow {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.85rem !important;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--bright-gold) !important;
+}
+
+.celebration-eyebrow i {
+    color: var(--bright-gold);
+    font-size: 0.7rem;
+    margin: 0 6px;
+}
+
+.celebration-closing i {
+    color: var(--deep-rose);
+    margin: 0 6px;
+}
+
 .celebration-message-box p:last-child { margin-bottom: 0; }
-.celebration-message-box p i { margin: 0 6px; }
 
 .gifts-label {
     font-family: var(--font-heading);
@@ -1231,6 +1305,7 @@ body::before {
 
 .thank-you-inner h3 {
     font-family: var(--font-romantic);
+    font-weight: 700;
     font-size: 2.5rem;
     color: var(--deep-rose);
     margin-bottom: 12px;
@@ -1358,8 +1433,9 @@ body::before {
 }
 
 .carousel-slide .slide-message {
-    font-size: 1rem;
-    line-height: 1.7;
+    font-family: var(--font-quote);
+    font-size: 1.2rem;
+    line-height: 1.6;
     color: var(--text-medium);
     font-style: italic;
     margin-bottom: 8px;
@@ -1478,6 +1554,7 @@ body::before {
 
 .footer-highlight {
     font-family: var(--font-romantic);
+    font-weight: 700;
     font-size: 1.4rem;
     color: var(--bright-gold);
 }
@@ -1492,6 +1569,11 @@ body::before {
 .footer-subtext {
     font-size: 0.85rem;
     color: rgba(255, 182, 193, 0.6);
+}
+
+.footer-subtext i {
+    color: var(--deep-rose);
+    margin-left: 2px;
 }
 
 /* ============================================
@@ -1577,6 +1659,7 @@ body::before {
 
 .custom-alert-content h3 {
     font-family: var(--font-romantic);
+    font-weight: 700;
     font-size: 2rem;
     color: var(--deep-rose);
     margin-bottom: 12px;
@@ -1648,8 +1731,18 @@ body::before {
     max-width: 500px;
 }
 
+.celebration-overlay-icon {
+    font-size: 2.6rem;
+    color: var(--bright-gold);
+    margin-bottom: 16px;
+    display: block;
+    animation: pulseHeart 1.5s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
+}
+
 .celebration-message h2 {
     font-family: var(--font-romantic);
+    font-weight: 700;
     font-size: clamp(1.7rem, 6vw, 3rem);
     color: var(--white);
     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
@@ -1711,6 +1804,39 @@ body::before {
 }
 
 /* ============================================
+   PAGE LOADER
+   ============================================ */
+.loader-content {
+    text-align: center;
+    color: white;
+    padding: 0 24px;
+}
+
+.loader-heart {
+    font-size: 3.4rem;
+    color: var(--bright-gold);
+    animation: pulseHeart 1s ease-in-out infinite;
+    display: block;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 16px rgba(255, 215, 0, 0.4));
+}
+
+.loader-text {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    color: var(--soft-pink);
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.loader-name {
+    font-family: var(--font-romantic);
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--bright-gold);
+}
+
+/* ============================================
    RESPONSIVE — TABLETS (601px - 1024px)
    ============================================ */
 @media screen and (max-width: 1024px) {
@@ -1755,7 +1881,7 @@ body::before {
     .hero-heart-top i { font-size: 2.2rem; }
     .hero-subtitle { font-size: 0.8rem; letter-spacing: 2.5px; }
     .hero-date { font-size: 0.95rem; }
-    .hero-message { font-size: 1rem; margin-bottom: 32px; }
+    .hero-message { font-size: 1.1rem; margin-bottom: 32px; }
 
     .btn-celebrate {
         font-size: 0.9rem;
@@ -1773,9 +1899,9 @@ body::before {
     .letter-card-inner { padding: 28px 20px; }
     .letter-greeting { font-size: 1.5rem; }
     .letter-body { font-size: 0.95rem; text-align: left; }
-    .letter-quote { padding: 20px 16px; }
-    .letter-quote p { font-size: 0.9rem; padding-left: 16px; }
-    .letter-quote span { padding-left: 16px; }
+    .letter-quote { padding: 24px 20px 20px 44px; }
+    .letter-quote p { font-size: 1.1rem; }
+    .letter-quote i { top: 18px; left: 14px; font-size: 1.1rem; }
     .letter-signature { font-size: 1.7rem; }
     .letter-stamp { display: none; }
 
@@ -1797,7 +1923,7 @@ body::before {
     .btn-send-wish { padding: 13px 16px; font-size: 0.95rem; }
 
     .carousel-slide { padding: 20px 40px; min-height: 200px; }
-    .carousel-slide .slide-message { font-size: 0.9rem; }
+    .carousel-slide .slide-message { font-size: 1.05rem; }
     .carousel-slide .slide-name { font-size: 0.9rem; }
     .carousel-arrow { width: 30px; height: 30px; font-size: 0.7rem; }
     .carousel-arrow-prev { left: 6px; }
