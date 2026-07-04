@@ -10,7 +10,6 @@
    CONSTANTS & CONFIGURATION
    ============================================ */
 const CONFIG = {
-    birthdayDate: new Date('2026-07-05T00:00:00+08:00'),
     floatingHeartsCount: 20,
     confettiCount: 150,
     confettiDuration: 6000,
@@ -47,12 +46,8 @@ const DOM = {
     // Floating Hearts
     floatingHeartsContainer: document.getElementById('floatingHearts'),
 
-    // Celebration (replaces Countdown)
+    // Celebration (cake & flowers section)
     phTime:             document.getElementById('phTime'),
-    countupDays:        document.getElementById('countupDays'),
-    countupHours:       document.getElementById('countupHours'),
-    countupMinutes:     document.getElementById('countupMinutes'),
-    countupSeconds:     document.getElementById('countupSeconds'),
 
     // Wishes Form
     wishesForm:         document.getElementById('wishesForm'),
@@ -100,13 +95,6 @@ const DOM = {
  * @returns {string}
  */
 const padNumber = (num) => String(num).padStart(2, '0');
-
-/**
- * Pad a number with leading zeros to 3 digits
- * @param {number} num
- * @returns {string}
- */
-const padNumber3 = (num) => String(num).padStart(3, '0');
 
 /**
  * Show a custom alert modal
@@ -240,6 +228,8 @@ const FloatingHearts = (() => {
      * Create a single floating heart element
      */
     const createHeart = () => {
+        if (!DOM.floatingHeartsContainer) return;
+
         const heart      = document.createElement('div');
         heart.classList.add('floating-heart');
         heart.textContent = randomFrom(heartSymbols);
@@ -437,6 +427,7 @@ const ConfettiAnimation = (() => {
      */
     const start = () => {
         if (isRunning) stop();
+        if (!DOM.confettiCanvas) return;
 
         resizeCanvas();
         ctx = DOM.confettiCanvas.getContext('2d');
@@ -583,6 +574,7 @@ const CelebrationAnimation = (() => {
      * Start the balloon celebration
      */
     const start = () => {
+        if (!DOM.balloonCanvas) return;
         resizeCanvas();
         ctx = DOM.balloonCanvas.getContext('2d');
 
@@ -592,7 +584,7 @@ const CelebrationAnimation = (() => {
         );
 
         // Stagger balloon starting positions
-        balloons.forEach((b, i) => {
+        balloons.forEach((b) => {
             b.y = DOM.balloonCanvas.height + randomBetween(0, 600);
         });
 
@@ -664,67 +656,32 @@ const Celebration = (() => {
 })();
 
 /* ============================================
-   CELEBRATION DISPLAY (Replaces Countdown)
+   CELEBRATION CLOCK
+   Shows the current time in the Philippines.
+   This replaces the old countdown/count-up timer.
    ============================================ */
-const CelebrationDisplay = (() => {
+const CelebrationClock = (() => {
 
     let intervalId = null;
 
     /**
-     * Update the celebration display
+     * Update the Philippines time display
      */
     const update = () => {
+        if (!DOM.phTime) return;
+
         const now = new Date();
-        
-        // Get Philippines time (UTC+8)
         const phTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Manila' }));
-        
-        // Update Philippines time display
-        if (DOM.phTime) {
-            const hours = padNumber(phTime.getHours());
-            const minutes = padNumber(phTime.getMinutes());
-            const seconds = padNumber(phTime.getSeconds());
-            DOM.phTime.textContent = `${hours}:${minutes}:${seconds}`;
-        }
 
-        // Calculate time since midnight (birthday began)
-        const midnight = new Date(phTime);
-        midnight.setHours(0, 0, 0, 0);
-        
-        const diff = phTime - midnight;
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        const hours   = padNumber(phTime.getHours());
+        const minutes = padNumber(phTime.getMinutes());
+        const seconds = padNumber(phTime.getSeconds());
 
-        // Update count-up display with animation
-        updateNumber(DOM.countupDays, padNumber3(days));
-        updateNumber(DOM.countupHours, padNumber(hours));
-        updateNumber(DOM.countupMinutes, padNumber(minutes));
-        updateNumber(DOM.countupSeconds, padNumber(seconds));
+        DOM.phTime.textContent = `${hours}:${minutes}:${seconds}`;
     };
 
     /**
-     * Animate the number change
-     * @param {HTMLElement} el
-     * @param {string} newValue
-     */
-    const updateNumber = (el, newValue) => {
-        if (!el) return;
-        if (el.textContent !== newValue) {
-            el.style.transform = 'translateY(-8px)';
-            el.style.opacity   = '0.5';
-
-            setTimeout(() => {
-                el.textContent     = newValue;
-                el.style.transform = 'translateY(0)';
-                el.style.opacity   = '1';
-            }, 150);
-        }
-    };
-
-    /**
-     * Initialize the celebration display
+     * Initialize the celebration clock
      */
     const init = () => {
         update(); // Run immediately
@@ -779,11 +736,17 @@ const WishCarousel = (() => {
      * Load wishes from localStorage
      */
     const loadWishes = () => {
-        const stored = localStorage.getItem('cherryWishes');
+        let stored = null;
+        try {
+            stored = localStorage.getItem('cherryWishes');
+        } catch (e) {
+            stored = null;
+        }
+
         if (stored) {
             try {
                 const parsed = JSON.parse(stored);
-                if (Array.isArray(parsed)) {
+                if (Array.isArray(parsed) && parsed.length > 0) {
                     wishes = parsed;
                     return;
                 }
@@ -800,7 +763,11 @@ const WishCarousel = (() => {
      * Save wishes to localStorage
      */
     const saveWishes = () => {
-        localStorage.setItem('cherryWishes', JSON.stringify(wishes));
+        try {
+            localStorage.setItem('cherryWishes', JSON.stringify(wishes));
+        } catch (e) {
+            // Storage unavailable (private browsing, etc.) — safe to ignore
+        }
     };
 
     /**
@@ -897,10 +864,11 @@ const WishCarousel = (() => {
         if (!DOM.carouselDots) return;
 
         DOM.carouselDots.innerHTML = '';
-        
+
         wishes.forEach((_, index) => {
             const dot = document.createElement('button');
             dot.className = 'carousel-dot';
+            dot.setAttribute('aria-label', `Go to wish ${index + 1}`);
             if (index === currentIndex) {
                 dot.classList.add('active');
             }
@@ -919,11 +887,11 @@ const WishCarousel = (() => {
      */
     const goToSlide = (index) => {
         if (wishes.length === 0) return;
-        
+
         // Wrap around
         if (index < 0) index = wishes.length - 1;
         if (index >= wishes.length) index = 0;
-        
+
         currentIndex = index;
 
         // Move track
@@ -961,6 +929,7 @@ const WishCarousel = (() => {
      * Start auto-play
      */
     const startAutoPlay = () => {
+        if (wishes.length <= 1) return;
         if (autoPlayInterval) {
             clearInterval(autoPlayInterval);
         }
@@ -1374,7 +1343,6 @@ const MemoryCards = (() => {
                 font-size: ${randomBetween(16, 28)}px;
                 pointer-events: none;
                 z-index: 9999;
-                animation: sparkleFloat 1.2s ease forwards;
                 transform: translate(-50%, -50%);
             `;
 
@@ -1611,7 +1579,7 @@ const PageLoad = (() => {
     const init = () => {
         const loader = createLoader();
 
-        window.addEventListener('load', () => {
+        const finishLoad = () => {
             setTimeout(() => {
                 loader.style.opacity   = '0';
                 loader.style.transform = 'scale(1.05)';
@@ -1621,7 +1589,13 @@ const PageLoad = (() => {
                     loader.remove();
                 }, 800);
             }, 1200);
-        });
+        };
+
+        if (document.readyState === 'complete') {
+            finishLoad();
+        } else {
+            window.addEventListener('load', finishLoad);
+        }
     };
 
     return { init };
@@ -1640,8 +1614,7 @@ const ActiveNavLink = (() => {
         let currentSection = '';
 
         sections.forEach(section => {
-            const sectionTop    = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
+            const sectionTop = section.offsetTop;
 
             if (window.scrollY >= sectionTop - 200) {
                 currentSection = section.getAttribute('id');
@@ -1699,25 +1672,6 @@ const TouchHoverStyle = (() => {
 })();
 
 /* ============================================
-   COUNTUP CARD TRANSITION STYLE
-   ============================================ */
-const CountupStyle = (() => {
-    const init = () => {
-        const style = document.createElement('style');
-        style.textContent = `
-            #countupDays,
-            #countupHours,
-            #countupMinutes,
-            #countupSeconds {
-                transition: transform 0.15s ease, opacity 0.15s ease;
-            }
-        `;
-        document.head.appendChild(style);
-    };
-    return { init };
-})();
-
-/* ============================================
    MAIN INITIALIZER
    ============================================ */
 const App = (() => {
@@ -1732,13 +1686,13 @@ const App = (() => {
         // Core functionality
         Navigation.init();
         FloatingHearts.init();
-        CelebrationDisplay.init(); // Replaces Countdown
+        CelebrationClock.init(); // Replaces the old countdown/countup
         BackToTop.init();
         ScrollReveal.init();
         ScrollIndicator.init();
         Celebration.init();
         WishesForm.init();
-        WishCarousel.init(); // New carousel
+        WishCarousel.init();
 
         // Interactions
         MemoryCards.init();
@@ -1748,7 +1702,6 @@ const App = (() => {
 
         // Style helpers
         TouchHoverStyle.init();
-        CountupStyle.init();
 
         // Window resize
         ResizeHandler.init();
