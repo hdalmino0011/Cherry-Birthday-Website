@@ -48,7 +48,7 @@
         <a href="#memories">📸 Memories</a>
         <a href="#celebration">🎉 Celebration</a>
         <a href="#wishes">💌 Send Wishes</a>
-        <button class="mobile-menu-close" id="mobileMenuClose">
+        <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
             <i class="fas fa-times"></i>
         </button>
     </div>
@@ -77,9 +77,9 @@
             </p>
 
             <button class="btn-celebrate" id="celebrateBtn">
-                <i class="fas fa-party-horn"></i>
+                <i class="fas fa-heart"></i>
                 Celebrate Our Love
-                <i class="fas fa-party-horn"></i>
+                <i class="fas fa-heart"></i>
             </button>
 
             <div class="hero-signature">
@@ -101,7 +101,7 @@
     <section class="section love-letter-section" id="letter">
         <div class="container">
             <div class="section-header">
-                <i class="fas fa-envelope-open-heart section-icon"></i>
+                <i class="fas fa-envelope-open-text section-icon"></i>
                 <h2 class="section-title">A Letter From My Heart</h2>
                 <div class="heart-divider">
                     <span></span><i class="fas fa-heart"></i><span></span>
@@ -184,9 +184,10 @@
 
             <div class="memories-grid">
 
-                <div class="memory-card" data-aos="fade-up">
+                <div class="memory-card">
                     <div class="memory-card-image">
-                        <img src="images/memory1.jpg" alt="Our First Date" loading="lazy">
+                        <img src="images/memory1.jpg" alt="Our First Date" loading="lazy" onerror="this.classList.add('img-failed')">
+                        <i class="fas fa-heart memory-card-placeholder-icon"></i>
                     </div>
                     <div class="memory-card-overlay">
                         <i class="fas fa-heart"></i>
@@ -197,9 +198,10 @@
                     </div>
                 </div>
 
-                <div class="memory-card" data-aos="fade-up">
+                <div class="memory-card">
                     <div class="memory-card-image">
-                        <img src="images/memory2.jpg" alt="Your Smile" loading="lazy">
+                        <img src="images/memory2.jpg" alt="Your Smile" loading="lazy" onerror="this.classList.add('img-failed')">
+                        <i class="fas fa-face-smile-beam memory-card-placeholder-icon"></i>
                     </div>
                     <div class="memory-card-overlay">
                         <i class="fas fa-heart"></i>
@@ -210,9 +212,10 @@
                     </div>
                 </div>
 
-                <div class="memory-card" data-aos="fade-up">
+                <div class="memory-card">
                     <div class="memory-card-image">
-                        <img src="images/memory3.jpg" alt="Holding Hands" loading="lazy">
+                        <img src="images/memory3.jpg" alt="Holding Hands" loading="lazy" onerror="this.classList.add('img-failed')">
+                        <i class="fas fa-hands-holding memory-card-placeholder-icon"></i>
                     </div>
                     <div class="memory-card-overlay">
                         <i class="fas fa-heart"></i>
@@ -223,9 +226,10 @@
                     </div>
                 </div>
 
-                <div class="memory-card" data-aos="fade-up">
+                <div class="memory-card">
                     <div class="memory-card-image">
-                        <img src="images/memory4.jpg" alt="Laughing Together" loading="lazy">
+                        <img src="images/memory4.jpg" alt="Laughing Together" loading="lazy" onerror="this.classList.add('img-failed')">
+                        <i class="fas fa-face-laugh-beam memory-card-placeholder-icon"></i>
                     </div>
                     <div class="memory-card-overlay">
                         <i class="fas fa-heart"></i>
@@ -236,9 +240,10 @@
                     </div>
                 </div>
 
-                <div class="memory-card" data-aos="fade-up">
+                <div class="memory-card">
                     <div class="memory-card-image">
-                        <img src="images/memory5.jpg" alt="Sunset Walks" loading="lazy">
+                        <img src="images/memory5.jpg" alt="Sunset Walks" loading="lazy" onerror="this.classList.add('img-failed')">
+                        <i class="fas fa-sun memory-card-placeholder-icon"></i>
                     </div>
                     <div class="memory-card-overlay">
                         <i class="fas fa-heart"></i>
@@ -249,9 +254,10 @@
                     </div>
                 </div>
 
-                <div class="memory-card" data-aos="fade-up">
+                <div class="memory-card">
                     <div class="memory-card-image">
-                        <img src="images/memory6.jpg" alt="Forever Us" loading="lazy">
+                        <img src="images/memory6.jpg" alt="Forever Us" loading="lazy" onerror="this.classList.add('img-failed')">
+                        <i class="fas fa-infinity memory-card-placeholder-icon"></i>
                     </div>
                     <div class="memory-card-overlay">
                         <i class="fas fa-heart"></i>
@@ -267,18 +273,19 @@
     </section>
 
     <!-- ============================================ -->
-    <!-- CELEBRATION SECTION (Replaces Countdown)     -->
+    <!-- CELEBRATION SECTION — Cake & Flowers         -->
+    <!-- (Replaces the old countdown timer)           -->
     <!-- ============================================ -->
     <section class="section celebration-section" id="celebration">
         <div class="container">
             <div class="section-header">
-                <i class="fas fa-birthday-cake section-icon"></i>
-                <h2 class="section-title">Today Is Her Day!</h2>
+                <i class="fas fa-cake-candles section-icon"></i>
+                <h2 class="section-title">Today Is Your Day!</h2>
                 <div class="heart-divider">
                     <span></span><i class="fas fa-heart"></i><span></span>
                 </div>
                 <p class="section-subtitle">
-                    July 5, 2026 - Celebrating the most beautiful soul in the Philippines
+                    July 5, 2026 &bull; Celebrating the most beautiful soul in the Philippines
                 </p>
             </div>
 
@@ -286,9 +293,51 @@
                 <div class="celebration-container">
 
                     <div class="celebration-main">
-                        <div class="celebration-icon">
-                            <i class="fas fa-heart pulse-heart"></i>
+
+                        <!-- Cake + flowers illustration -->
+                        <div class="cake-illustration" aria-hidden="true">
+                            <svg viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg">
+                                <!-- flowers -->
+                                <g class="floating-petal">
+                                    <circle cx="30" cy="60" r="7" fill="#FFB6C1"/>
+                                    <circle cx="20" cy="50" r="7" fill="#FFB6C1"/>
+                                    <circle cx="40" cy="50" r="7" fill="#FFB6C1"/>
+                                    <circle cx="30" cy="42" r="7" fill="#FFB6C1"/>
+                                    <circle cx="30" cy="50" r="6" fill="#FFD700"/>
+                                </g>
+                                <g class="floating-petal">
+                                    <circle cx="190" cy="70" r="6" fill="#DDA0DD"/>
+                                    <circle cx="182" cy="62" r="6" fill="#DDA0DD"/>
+                                    <circle cx="198" cy="62" r="6" fill="#DDA0DD"/>
+                                    <circle cx="190" cy="55" r="6" fill="#DDA0DD"/>
+                                    <circle cx="190" cy="62" r="5" fill="#FFD700"/>
+                                </g>
+                                <!-- candles -->
+                                <g class="candle-flame">
+                                    <ellipse cx="80" cy="55" rx="5" ry="8" fill="#FFD700"/>
+                                    <ellipse cx="80" cy="57" rx="2.5" ry="4" fill="#FF7F50"/>
+                                    <rect x="77" y="60" width="6" height="22" rx="2" fill="#FF7F50"/>
+                                </g>
+                                <g class="candle-flame">
+                                    <ellipse cx="110" cy="48" rx="5" ry="8" fill="#FFD700"/>
+                                    <ellipse cx="110" cy="50" rx="2.5" ry="4" fill="#FF7F50"/>
+                                    <rect x="107" y="53" width="6" height="29" rx="2" fill="#E75480"/>
+                                </g>
+                                <g class="candle-flame">
+                                    <ellipse cx="140" cy="55" rx="5" ry="8" fill="#FFD700"/>
+                                    <ellipse cx="140" cy="57" rx="2.5" ry="4" fill="#FF7F50"/>
+                                    <rect x="137" y="60" width="6" height="22" rx="2" fill="#FF7F50"/>
+                                </g>
+                                <!-- cake tiers -->
+                                <rect x="55" y="82" width="110" height="34" rx="6" fill="#FFF0F3"/>
+                                <rect x="55" y="82" width="110" height="10" rx="5" fill="#FFB6C1"/>
+                                <rect x="40" y="116" width="140" height="42" rx="8" fill="#E75480"/>
+                                <rect x="40" y="116" width="140" height="12" rx="6" fill="#FFB6C1"/>
+                                <!-- plate -->
+                                <ellipse cx="110" cy="162" rx="90" ry="10" fill="#DDA0DD" opacity="0.5"/>
+                            </svg>
                         </div>
+
                         <h2 class="celebration-title">
                             Happy Birthday, Cherry Ann!
                         </h2>
@@ -298,9 +347,10 @@
                         </p>
                         <p class="celebration-time" id="celebrationTime">
                             <i class="fas fa-clock"></i>
-                            Current time in the Philippines:
+                            Right now in the Philippines:
                             <span id="phTime">Loading...</span>
                         </p>
+
                         <div class="celebration-message-box">
                             <p>
                                 🎉 Today is YOUR day, my love! 🎉
@@ -316,38 +366,24 @@
                             </p>
                         </div>
 
-                        <div class="celebration-countup">
-                            <p class="countup-label">It's been...</p>
-                            <div class="countup-container">
-                                <div class="countup-card">
-                                    <div class="countup-number" id="countupDays">00</div>
-                                    <div class="countup-label">Days</div>
-                                </div>
-                                <div class="countup-separator">
-                                    <i class="fas fa-heart pulse-heart"></i>
-                                </div>
-                                <div class="countup-card">
-                                    <div class="countup-number" id="countupHours">00</div>
-                                    <div class="countup-label">Hours</div>
-                                </div>
-                                <div class="countup-separator">
-                                    <i class="fas fa-heart pulse-heart"></i>
-                                </div>
-                                <div class="countup-card">
-                                    <div class="countup-number" id="countupMinutes">00</div>
-                                    <div class="countup-label">Minutes</div>
-                                </div>
-                                <div class="countup-separator">
-                                    <i class="fas fa-heart pulse-heart"></i>
-                                </div>
-                                <div class="countup-card">
-                                    <div class="countup-number" id="countupSeconds">00</div>
-                                    <div class="countup-label">Seconds</div>
-                                </div>
+                        <p class="gifts-label">What today is made of</p>
+                        <div class="gifts-row">
+                            <div class="gift-card">
+                                <i class="fas fa-cake-candles"></i>
+                                <span>Cake</span>
                             </div>
-                            <p class="countup-message">
-                                since your birthday began in the Philippines! 🎂
-                            </p>
+                            <div class="gift-card">
+                                <i class="fas fa-spa"></i>
+                                <span>Flowers</span>
+                            </div>
+                            <div class="gift-card">
+                                <i class="fas fa-heart"></i>
+                                <span>Love</span>
+                            </div>
+                            <div class="gift-card">
+                                <i class="fas fa-hands-praying"></i>
+                                <span>Blessings</span>
+                            </div>
                         </div>
                     </div>
 
