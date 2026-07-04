@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A birthday love letter website for Cherry Ann M. Casinto from Hanz Dee Dalmino">
+    <title>Happy Birthday, Cherry Ann! 💕</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Poppins:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ============================================ -->
+    <!-- FLOATING HEARTS BACKGROUND                   -->
+    <!-- ============================================ -->
+    <div class="floating-hearts" id="floatingHearts" aria-hidden="true"></div>
+
+    <!-- ============================================ -->
+    <!-- NAVIGATION (Minimal, Top)                    -->
+    <!-- ============================================ -->
+    <nav class="nav" id="mainNav">
+        <a href="#hero" class="nav-logo">
+            <i class="fas fa-heart"></i> Cherry Ann's Day
+        </a>
+        <div class="nav-links">
+            <a href="#letter">Letter</a>
+            <a href="#memories">Memories</a>
+            <a href="#countdown">Countdown</a>
+            <a href="#wishes">Wishes</a>
+        </div>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#letter">💌 Love Letter</a>
+        <a href="#memories">📸 Memories</a>
+        <a href="#countdown">⏳ Countdown</a>
+        <a href="#wishes">💌 Send Wishes</a>
+        <button class="mobile-menu-close" id="mobileMenuClose">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- HERO SECTION                                 -->
+    <!-- ============================================ -->
+    <header class="hero" id="hero">
+        <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
+
+        <div class="hero-content">
+            <div class="hero-heart-top">
+                <i class="fas fa-heart"></i>
+            </div>
+
+            <p class="hero-subtitle">To My Dearest</p>
+            <h1 class="hero-name">Cherry Ann</h1>
+            <h2 class="hero-title">Happy Birthday!</h2>
+            <p class="hero-date">
+                <i class="fas fa-calendar-heart"></i>
+                July 5, 2026
+            </p>
+            <p class="hero-message">
+                "Every day with you is a gift. You are my sunshine,<br>
+                my love, my everything."
+            </p>
+
+            <button class="btn-celebrate" id="celebrateBtn">
+                <i class="fas fa-party-horn"></i>
+                Celebrate Our Love
+                <i class="fas fa-party-horn"></i>
+            </button>
+
+            <div class="hero-signature">
+                <p>With all my love,</p>
+                <p class="hero-boyfriend">Hanz Dee Dalmino</p>
+                <i class="fas fa-heart pulse-heart"></i>
+            </div>
+        </div>
+
+        <div class="scroll-indicator" id="scrollIndicator">
+            <span>Scroll Down</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </header>
+
+    <!-- ============================================ -->
+    <!-- ABOUT / LOVE LETTER SECTION                  -->
+    <!-- ============================================ -->
+    <section class="section love-letter-section" id="letter">
+        <div class="container">
+            <div class="section-header">
+                <i class="fas fa-envelope-open-heart section-icon"></i>
+                <h2 class="section-title">A Letter From My Heart</h2>
+                <div class="heart-divider">
+                    <span></span><i class="fas fa-heart"></i><span></span>
+                </div>
+            </div>
+
+            <div class="letter-card">
+                <div class="letter-card-inner">
+                    <div class="letter-stamp">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <p class="letter-date">July 5, 2026</p>
+                    <p class="letter-greeting">My Dearest Cherry Ann,</p>
+
+                    <p class="letter-body">
+                        On this beautiful day, I want you to know just how much you mean to me.
+                        From the moment you came into my life, everything changed for the better.
+                        Your smile lights up my darkest days, and your laughter is the most
+                        beautiful melody I have ever heard.
+                    </p>
+
+                    <p class="letter-body">
+                        You are not just my girlfriend — you are my best friend, my confidante,
+                        my safe place, and my greatest adventure. Every moment we share, whether
+                        it's a quiet evening at home or a spontaneous adventure out in the world,
+                        becomes a treasured memory because I get to spend it with you.
+                    </p>
+
+                    <p class="letter-body">
+                        I love the way your eyes sparkle when you're happy, the way you care so
+                        deeply about the people you love, and the way you make even the simplest
+                        moments feel magical. You have a heart of pure gold, and I am the
+                        luckiest person in the world to call you mine.
+                    </p>
+
+                    <p class="letter-body">
+                        As you celebrate another year of life today, I want to make a promise
+                        to you — I will spend every single day loving you, supporting you,
+                        and making you feel as special as you truly are. You deserve the world,
+                        and I will spend my life trying to give it to you.
+                    </p>
+
+                    <div class="letter-quote">
+                        <i class="fas fa-quote-left"></i>
+                        <p>"I knew the second I met you that there was something about you I
+                        needed. Turns out it wasn't something about you at all. It was just you."</p>
+                        <span>— Jamie McGuire</span>
+                    </div>
+
+                    <p class="letter-body">
+                        Happy Birthday, my love. Here's to another beautiful year of us — and to
+                        a lifetime of love, laughter, and endless happiness together.
+                    </p>
+
+                    <p class="letter-closing">
+                        Forever and always yours,
+                    </p>
+                    <p class="letter-signature">
+                        Hanz Dee Dalmino
+                        <i class="fas fa-heart pulse-heart"></i>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- GALLERY / MEMORIES SECTION                   -->
+    <!-- ============================================ -->
+    <section class="section memories-section" id="memories">
+        <div class="container">
+            <div class="section-header">
+                <i class="fas fa-images section-icon"></i>
+                <h2 class="section-title">Our Beautiful Memories</h2>
+                <div class="heart-divider">
+                    <span></span><i class="fas fa-heart"></i><span></span>
+                </div>
+                <p class="section-subtitle">
+                    Every moment with you is a treasure I hold close to my heart
+                </p>
+            </div>
+
+            <div class="memories-grid">
+
+                <div class="memory-card" data-aos="fade-up">
+                    <div class="memory-card-image">
+                        <i class="fas fa-heart"></i>
+                        <span>💕</span>
+                    </div>
+                    <div class="memory-card-overlay">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="memory-card-caption">
+                        <h3>Our First Date</h3>
+                        <p>Where it all began</p>
+                    </div>
+                </div>
+
+                <div class="memory-card" data-aos="fade-up">
+                    <div class="memory-card-image">
+                        <i class="fas fa-heart"></i>
+                        <span>😊</span>
+                    </div>
+                    <div class="memory-card-overlay">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="memory-card-caption">
+                        <h3>Your Smile</h3>
+                        <p>My favorite sight</p>
+                    </div>
+                </div>
+
+                <div class="memory-card" data-aos="fade-up">
+                    <div class="memory-card-image">
+                        <i class="fas fa-heart"></i>
+                        <span>🤲</span>
+                    </div>
+                    <div class="memory-card-overlay">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="memory-card-caption">
+                        <h3>Holding Hands</h3>
+                        <p>United as one</p>
+                    </div>
+                </div>
+
+                <div class="memory-card" data-aos="fade-up">
+                    <div class="memory-card-image">
+                        <i class="fas fa-heart"></i>
+                        <span>😂</span>
+                    </div>
+                    <div class="memory-card-overlay">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="memory-card-caption">
+                        <h3>Laughing Together</h3>
+                        <p>Pure joy and happiness</p>
+                    </div>
+                </div>
+
+                <div class="memory-card" data-aos="fade-up">
+                    <div class="memory-card-image">
+                        <i class="fas fa-heart"></i>
+                        <span>🌅</span>
+                    </div>
+                    <div class="memory-card-overlay">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="memory-card-caption">
+                        <h3>Sunset Walks</h3>
+                        <p>Golden moments</p>
+                    </div>
+                </div>
+
+                <div class="memory-card" data-aos="fade-up">
+                    <div class="memory-card-image">
+                        <i class="fas fa-heart"></i>
+                        <span>♾️</span>
+                    </div>
+                    <div class="memory-card-overlay">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="memory-card-caption">
+                        <h3>Forever Us</h3>
+                        <p>Together always</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- BIRTHDAY COUNTDOWN SECTION                   -->
+    <!-- ============================================ -->
+    <section class="section countdown-section" id="countdown">
+        <div class="container">
+            <div class="section-header">
+                <i class="fas fa-hourglass-half section-icon"></i>
+                <h2 class="section-title">Birthday Countdown</h2>
+                <div class="heart-divider">
+                    <span></span><i class="fas fa-heart"></i><span></span>
+                </div>
+                <p class="section-subtitle">
+                    Counting down to your special day, my love
+                </p>
+            </div>
+
+            <div class="countdown-wrapper">
+                <div class="countdown-container">
+
+                    <div class="countdown-card">
+                        <div class="countdown-number" id="countDays">000</div>
+                        <div class="countdown-label">Days</div>
+                    </div>
+
+                    <div class="countdown-separator">
+                        <i class="fas fa-heart pulse-heart"></i>
+                    </div>
+
+                    <div class="countdown-card">
+                        <div class="countdown-number" id="countHours">00</div>
+                        <div class="countdown-label">Hours</div>
+                    </div>
+
+                    <div class="countdown-separator">
+                        <i class="fas fa-heart pulse-heart"></i>
+                    </div>
+
+                    <div class="countdown-card">
+                        <div class="countdown-number" id="countMinutes">00</div>
+                        <div class="countdown-label">Minutes</div>
+                    </div>
+
+                    <div class="countdown-separator">
+                        <i class="fas fa-heart pulse-heart"></i>
+                    </div>
+
+                    <div class="countdown-card">
+                        <div class="countdown-number" id="countSeconds">00</div>
+                        <div class="countdown-label">Seconds</div>
+                    </div>
+
+                </div>
+
+                <div class="countdown-message" id="countdownMessage">
+                    <i class="fas fa-gift"></i>
+                    <span>Loading your special countdown...</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- WISHES / LOVE NOTES SECTION                  -->
+    <!-- ============================================ -->
+    <section class="section wishes-section" id="wishes">
+        <div class="container">
+            <div class="section-header">
+                <i class="fas fa-paper-plane section-icon"></i>
+                <h2 class="section-title">Send Your Love</h2>
+                <div class="heart-divider">
+                    <span></span><i class="fas fa-heart"></i><span></span>
+                </div>
+                <p class="section-subtitle">
+                    Leave a heartfelt note for Cherry Ann's special day
+                </p>
+            </div>
+
+            <div class="wishes-container">
+
+                <!-- Form -->
+                <div class="wishes-form-wrapper">
+                    <form class="wishes-form" id="wishesForm">
+                        <div class="form-group">
+                            <label for="wishName">
+                                <i class="fas fa-user"></i> Your Name
+                            </label>
+                            <input
+                                type="text"
+                                id="wishName"
+                                placeholder="Enter your name..."
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="wishMessage">
+                                <i class="fas fa-heart"></i> Your Love Note
+                            </label>
+                            <textarea
+                                id="wishMessage"
+                                rows="4"
+                                placeholder="Write a sweet birthday message for Cherry Ann..."
+                                required
+                            ></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-send-wish">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Your Love
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </form>
+
+                    <!-- Thank You Message (Hidden by default) -->
+                    <div class="thank-you-message" id="thankYouMessage">
+                        <div class="thank-you-inner">
+                            <i class="fas fa-heart pulse-heart"></i>
+                            <h3>Thank You!</h3>
+                            <p>Your love note has been sent! Cherry Ann's heart is full. 💕</p>
+                            <button class="btn-send-another" id="sendAnotherBtn">
+                                <i class="fas fa-plus"></i> Send Another
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pre-filled Example Wishes -->
+                <div class="example-wishes">
+                    <h3 class="example-wishes-title">
+                        <i class="fas fa-envelope-open"></i>
+                        Love Notes from Friends & Family
+                    </h3>
+
+                    <div class="wish-card">
+                        <div class="wish-card-header">
+                            <div class="wish-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div>
+                                <h4>Maria Santos</h4>
+                                <span class="wish-date">Best Friend</span>
+                            </div>
+                        </div>
+                        <p class="wish-text">
+                            "Happy Birthday, Cherry! 🎂 You deserve all the happiness in the world.
+                            Watching you and Hanz together makes my heart so full. Here's to another
+                            year of beautiful love and endless joy! Love you always! 💕"
+                        </p>
+                        <div class="wish-hearts">
+                            <i class="fas fa-heart"></i>
+                            <i class="fas fa-heart"></i>
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+
+                    <div class="wish-card">
+                        <div class="wish-card-header">
+                            <div class="wish-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div>
+                                <h4>Joyce Dalmino</h4>
+                                <span class="wish-date">Hanz's Sister</span>
+                            </div>
+                        </div>
+                        <p class="wish-text">
+                            "Happy Birthday to the sweetest person I know! 🌸 Cherry, you are such
+                            a blessing to our family. My brother is so lucky to have you, and we
+                            are all lucky to have you in our lives. Enjoy your special day! 🎉❤️"
+                        </p>
+                        <div class="wish-hearts">
+                            <i class="fas fa-heart"></i>
+                            <i class="fas fa-heart"></i>
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+
+                    <div class="wish-card">
+                        <div class="wish-card-header">
+                            <div class="wish-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div>
+                                <h4>Rachel Reyes</h4>
+                                <span class="wish-date">College Friend</span>
+                            </div>
+                        </div>
+                        <p class="wish-text">
+                            "Cherry! Happy Happy Birthday! 🎈🎂 May all your wishes come true this
+                            year. You are one of the most kind-hearted and beautiful souls I know.
+                            Keep shining and spreading love wherever you go! We love you! 💖✨"
+                        </p>
+                        <div class="wish-hearts">
+                            <i class="fas fa-heart"></i>
+                            <i class="fas fa-heart"></i>
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- FOOTER                                       -->
+    <!-- ============================================ -->
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    Made with infinite love for
+                    <span class="footer-highlight">Cherry Ann</span>
+                    by
+                    <span class="footer-highlight">Hanz Dee Dalmino</span>
+                </p>
+                <div class="footer-heart">
+                    <i class="fas fa-heart pulse-heart"></i>
+                </div>
+                <p class="footer-subtext">
+                    &copy; 2026 &bull; A love story in the making &bull;
+                    <i class="fas fa-heart" style="color: #FFB6C1;"></i>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- BACK TO TOP BUTTON                           -->
+    <!-- ============================================ -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-heart"></i>
+    </button>
+
+    <!-- ============================================ -->
+    <!-- CUSTOM ALERT / MODAL                         -->
+    <!-- ============================================ -->
+    <div class="custom-alert" id="customAlert">
+        <div class="custom-alert-content">
+            <i class="fas fa-heart pulse-heart alert-icon"></i>
+            <h3 id="alertTitle">Thank You!</h3>
+            <p id="alertMessage">Your message has been received.</p>
+            <button class="btn-alert-close" id="alertCloseBtn">
+                <i class="fas fa-heart"></i> Close
+            </button>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- BIRTHDAY CELEBRATION OVERLAY                 -->
+    <!-- ============================================ -->
+    <div class="celebration-overlay" id="celebrationOverlay">
+        <canvas id="balloonCanvas"></canvas>
+        <div class="celebration-message">
+            <h2>🎂 Happy Birthday, Cherry Ann! 🎂</h2>
+            <p>Wishing you all the love and happiness in the world!</p>
+            <button class="btn-close-celebration" id="closeCelebrationBtn">
+                <i class="fas fa-heart"></i> Thank You, My Love
+            </button>
+        </div>
+    </div>
+
+    <!-- External Script -->
+    <script src="script.js"></script>
+
+</body>
+</html>
