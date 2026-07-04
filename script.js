@@ -10,7 +10,7 @@
    CONSTANTS & CONFIGURATION
    ============================================ */
 const CONFIG = {
-    birthdayDate: new Date('2026-07-05T00:00:00'),
+    birthdayDate: new Date('2026-07-05T00:00:00+08:00'),
     floatingHeartsCount: 20,
     confettiCount: 150,
     confettiDuration: 6000,
@@ -47,12 +47,12 @@ const DOM = {
     // Floating Hearts
     floatingHeartsContainer: document.getElementById('floatingHearts'),
 
-    // Countdown
-    countDays:          document.getElementById('countDays'),
-    countHours:         document.getElementById('countHours'),
-    countMinutes:       document.getElementById('countMinutes'),
-    countSeconds:       document.getElementById('countSeconds'),
-    countdownMessage:   document.getElementById('countdownMessage'),
+    // Celebration (replaces Countdown)
+    phTime:             document.getElementById('phTime'),
+    countupDays:        document.getElementById('countupDays'),
+    countupHours:       document.getElementById('countupHours'),
+    countupMinutes:     document.getElementById('countupMinutes'),
+    countupSeconds:     document.getElementById('countupSeconds'),
 
     // Wishes Form
     wishesForm:         document.getElementById('wishesForm'),
@@ -77,9 +77,17 @@ const DOM = {
 
     // Reveal elements
     revealElements:     document.querySelectorAll(
-        '.letter-card, .memory-card, .countdown-wrapper, ' +
-        '.wishes-form-wrapper, .example-wishes, .wish-card'
+        '.letter-card, .memory-card, .celebration-wrapper, ' +
+        '.wishes-form-wrapper, .carousel-container'
     ),
+
+    // Carousel
+    carouselTrack:      document.getElementById('carouselTrack'),
+    carouselPrev:       document.getElementById('carouselPrev'),
+    carouselNext:       document.getElementById('carouselNext'),
+    carouselDots:       document.getElementById('carouselDots'),
+    currentSlideSpan:   document.getElementById('currentSlide'),
+    totalSlidesSpan:    document.getElementById('totalSlides'),
 };
 
 /* ============================================
@@ -92,6 +100,13 @@ const DOM = {
  * @returns {string}
  */
 const padNumber = (num) => String(num).padStart(2, '0');
+
+/**
+ * Pad a number with leading zeros to 3 digits
+ * @param {number} num
+ * @returns {string}
+ */
+const padNumber3 = (num) => String(num).padStart(3, '0');
 
 /**
  * Show a custom alert modal
@@ -649,50 +664,44 @@ const Celebration = (() => {
 })();
 
 /* ============================================
-   COUNTDOWN TIMER
+   CELEBRATION DISPLAY (Replaces Countdown)
    ============================================ */
-const Countdown = (() => {
+const CelebrationDisplay = (() => {
 
     let intervalId = null;
 
     /**
-     * Update the countdown display
+     * Update the celebration display
      */
     const update = () => {
-        const now         = new Date();
-        const target      = CONFIG.birthdayDate;
-        const diff        = target - now;
-
-        // Birthday has arrived!
-        if (diff <= 0) {
-            clearInterval(intervalId);
-            DOM.countDays.textContent    = '00';
-            DOM.countHours.textContent   = '00';
-            DOM.countMinutes.textContent = '00';
-            DOM.countSeconds.textContent = '00';
-
-            DOM.countdownMessage.innerHTML = `
-                <i class="fas fa-birthday-cake"></i>
-                <span>🎉 Happy Birthday, Cherry Ann! Today is YOUR day! 🎂❤️</span>
-            `;
-            DOM.countdownMessage.classList.add('birthday-reached');
-            Celebration.show();
-            return;
+        const now = new Date();
+        
+        // Get Philippines time (UTC+8)
+        const phTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Manila' }));
+        
+        // Update Philippines time display
+        if (DOM.phTime) {
+            const hours = padNumber(phTime.getHours());
+            const minutes = padNumber(phTime.getMinutes());
+            const seconds = padNumber(phTime.getSeconds());
+            DOM.phTime.textContent = `${hours}:${minutes}:${seconds}`;
         }
 
-        const days    = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours   = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        // Calculate time since midnight (birthday began)
+        const midnight = new Date(phTime);
+        midnight.setHours(0, 0, 0, 0);
+        
+        const diff = phTime - midnight;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-        // Update DOM with animated flip
-        updateNumber(DOM.countDays,    padNumber(days));
-        updateNumber(DOM.countHours,   padNumber(hours));
-        updateNumber(DOM.countMinutes, padNumber(minutes));
-        updateNumber(DOM.countSeconds, padNumber(seconds));
-
-        // Dynamic message based on how close the birthday is
-        updateMessage(days);
+        // Update count-up display with animation
+        updateNumber(DOM.countupDays, padNumber3(days));
+        updateNumber(DOM.countupHours, padNumber(hours));
+        updateNumber(DOM.countupMinutes, padNumber(minutes));
+        updateNumber(DOM.countupSeconds, padNumber(seconds));
     };
 
     /**
@@ -701,6 +710,7 @@ const Countdown = (() => {
      * @param {string} newValue
      */
     const updateNumber = (el, newValue) => {
+        if (!el) return;
         if (el.textContent !== newValue) {
             el.style.transform = 'translateY(-8px)';
             el.style.opacity   = '0.5';
@@ -714,34 +724,7 @@ const Countdown = (() => {
     };
 
     /**
-     * Update countdown message based on days remaining
-     * @param {number} days
-     */
-    const updateMessage = (days) => {
-        let message = '';
-
-        if (days > 365) {
-            message = `⏳ Still waiting patiently for your special day, my love.`;
-        } else if (days > 30) {
-            message = `🌸 ${days} days left until I get to celebrate the love of my life!`;
-        } else if (days > 7) {
-            message = `💕 Almost there! Just ${days} more days, my dearest Cherry Ann!`;
-        } else if (days > 1) {
-            message = `🎉 Only ${days} days left! The excitement is overwhelming!`;
-        } else if (days === 1) {
-            message = `✨ Tomorrow is YOUR day, Cherry Ann! I can't wait! 💖`;
-        } else {
-            message = `🎂 Today is the day! Happy Birthday, my love! 🎉💕`;
-        }
-
-        DOM.countdownMessage.innerHTML = `
-            <i class="fas fa-gift"></i>
-            <span>${message}</span>
-        `;
-    };
-
-    /**
-     * Initialize the countdown timer
+     * Initialize the celebration display
      */
     const init = () => {
         update(); // Run immediately
@@ -749,6 +732,314 @@ const Countdown = (() => {
     };
 
     return { init };
+
+})();
+
+/* ============================================
+   WISHES CAROUSEL
+   ============================================ */
+const WishCarousel = (() => {
+
+    let wishes = [];
+    let currentIndex = 0;
+    let autoPlayInterval = null;
+    const AUTO_PLAY_DELAY = 5000;
+
+    // Hardcoded wishes from family
+    const HARDCODED_WISHES = [
+        {
+            name: 'Baby Heart',
+            message: 'Happy Birthday ate Cherry I love you so much and buy me cotton candies okay',
+            relation: 'Little Sister'
+        },
+        {
+            name: 'Maria Teresa Dalmino',
+            message: 'Happy Birthday Cherry, amping and God Bless you!',
+            relation: 'Hanz\'s Mom'
+        },
+        {
+            name: 'Edgar Dalmino',
+            message: 'Happy Birthday indae Cherry, pray to God always and amping!',
+            relation: 'Hanz\'s Father'
+        }
+    ];
+
+    /**
+     * Get initials from name for avatar
+     * @param {string} name
+     * @returns {string}
+     */
+    const getInitials = (name) => {
+        const parts = name.split(' ');
+        if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
+        return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
+    };
+
+    /**
+     * Load wishes from localStorage
+     */
+    const loadWishes = () => {
+        const stored = localStorage.getItem('cherryWishes');
+        if (stored) {
+            try {
+                const parsed = JSON.parse(stored);
+                if (Array.isArray(parsed)) {
+                    wishes = parsed;
+                    return;
+                }
+            } catch (e) {
+                // Fall through to hardcoded
+            }
+        }
+        // If no stored wishes, use hardcoded ones
+        wishes = HARDCODED_WISHES.map(w => ({ ...w }));
+        saveWishes();
+    };
+
+    /**
+     * Save wishes to localStorage
+     */
+    const saveWishes = () => {
+        localStorage.setItem('cherryWishes', JSON.stringify(wishes));
+    };
+
+    /**
+     * Add a new wish
+     * @param {string} name
+     * @param {string} message
+     */
+    const addWish = (name, message) => {
+        wishes.push({
+            name: name.trim(),
+            message: message.trim(),
+            relation: 'Friend'
+        });
+        saveWishes();
+        renderCarousel();
+        // Go to the new slide
+        goToSlide(wishes.length - 1);
+    };
+
+    /**
+     * Create a slide element
+     * @param {object} wish
+     * @param {number} index
+     * @returns {HTMLElement}
+     */
+    const createSlide = (wish, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'carousel-slide';
+        slide.dataset.index = index;
+
+        const initials = getInitials(wish.name);
+
+        slide.innerHTML = `
+            <div class="slide-header">
+                <div class="slide-avatar">${initials}</div>
+                <div>
+                    <div class="slide-name">${escapeHtml(wish.name)}</div>
+                    <div class="slide-relation">${escapeHtml(wish.relation)}</div>
+                </div>
+            </div>
+            <p class="slide-message">"${escapeHtml(wish.message)}"</p>
+            <div class="slide-hearts">
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart"></i>
+            </div>
+        `;
+
+        return slide;
+    };
+
+    /**
+     * Simple HTML escaping
+     * @param {string} str
+     * @returns {string}
+     */
+    const escapeHtml = (str) => {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    };
+
+    /**
+     * Render the carousel
+     */
+    const renderCarousel = () => {
+        if (!DOM.carouselTrack) return;
+
+        // Clear track
+        DOM.carouselTrack.innerHTML = '';
+
+        // Create slides
+        wishes.forEach((wish, index) => {
+            const slide = createSlide(wish, index);
+            DOM.carouselTrack.appendChild(slide);
+        });
+
+        // Update dots
+        renderDots();
+
+        // Update counter
+        if (DOM.totalSlidesSpan) {
+            DOM.totalSlidesSpan.textContent = wishes.length;
+        }
+
+        // Go to current slide
+        goToSlide(currentIndex);
+    };
+
+    /**
+     * Render dots
+     */
+    const renderDots = () => {
+        if (!DOM.carouselDots) return;
+
+        DOM.carouselDots.innerHTML = '';
+        
+        wishes.forEach((_, index) => {
+            const dot = document.createElement('button');
+            dot.className = 'carousel-dot';
+            if (index === currentIndex) {
+                dot.classList.add('active');
+            }
+            dot.dataset.index = index;
+            dot.addEventListener('click', () => {
+                goToSlide(index);
+                resetAutoPlay();
+            });
+            DOM.carouselDots.appendChild(dot);
+        });
+    };
+
+    /**
+     * Go to a specific slide
+     * @param {number} index
+     */
+    const goToSlide = (index) => {
+        if (wishes.length === 0) return;
+        
+        // Wrap around
+        if (index < 0) index = wishes.length - 1;
+        if (index >= wishes.length) index = 0;
+        
+        currentIndex = index;
+
+        // Move track
+        if (DOM.carouselTrack) {
+            DOM.carouselTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+
+        // Update dots
+        const dots = DOM.carouselDots.querySelectorAll('.carousel-dot');
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === currentIndex);
+        });
+
+        // Update counter
+        if (DOM.currentSlideSpan) {
+            DOM.currentSlideSpan.textContent = currentIndex + 1;
+        }
+    };
+
+    /**
+     * Go to next slide
+     */
+    const nextSlide = () => {
+        goToSlide(currentIndex + 1);
+    };
+
+    /**
+     * Go to previous slide
+     */
+    const prevSlide = () => {
+        goToSlide(currentIndex - 1);
+    };
+
+    /**
+     * Start auto-play
+     */
+    const startAutoPlay = () => {
+        if (autoPlayInterval) {
+            clearInterval(autoPlayInterval);
+        }
+        autoPlayInterval = setInterval(nextSlide, AUTO_PLAY_DELAY);
+    };
+
+    /**
+     * Reset auto-play
+     */
+    const resetAutoPlay = () => {
+        startAutoPlay();
+    };
+
+    /**
+     * Pause auto-play
+     */
+    const pauseAutoPlay = () => {
+        if (autoPlayInterval) {
+            clearInterval(autoPlayInterval);
+            autoPlayInterval = null;
+        }
+    };
+
+    /**
+     * Initialize the carousel
+     */
+    const init = () => {
+        loadWishes();
+        renderCarousel();
+
+        // Event listeners
+        if (DOM.carouselPrev) {
+            DOM.carouselPrev.addEventListener('click', () => {
+                prevSlide();
+                resetAutoPlay();
+            });
+        }
+
+        if (DOM.carouselNext) {
+            DOM.carouselNext.addEventListener('click', () => {
+                nextSlide();
+                resetAutoPlay();
+            });
+        }
+
+        // Pause on hover
+        const container = document.getElementById('wishCarousel');
+        if (container) {
+            container.addEventListener('mouseenter', pauseAutoPlay);
+            container.addEventListener('mouseleave', startAutoPlay);
+            // Touch support
+            container.addEventListener('touchstart', pauseAutoPlay, { passive: true });
+            container.addEventListener('touchend', startAutoPlay, { passive: true });
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+                resetAutoPlay();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+                resetAutoPlay();
+            }
+        });
+
+        startAutoPlay();
+    };
+
+    /**
+     * Add a new wish from form
+     * @param {string} name
+     * @param {string} message
+     */
+    const addWishFromForm = (name, message) => {
+        addWish(name, message);
+    };
+
+    return { init, addWishFromForm };
 
 })();
 
@@ -774,6 +1065,9 @@ const WishesForm = (() => {
             );
             return;
         }
+
+        // Add wish to carousel
+        WishCarousel.addWishFromForm(name, message);
 
         // Show thank you overlay within the form
         DOM.thankYouMessage.classList.add('active');
@@ -884,7 +1178,7 @@ const ScrollReveal = (() => {
         // Also add to section headers and other elements
         document.querySelectorAll(
             '.section-header, .letter-card, .memory-card, ' +
-            '.countdown-card, .wish-card, .wishes-form'
+            '.celebration-container, .wish-card, .wishes-form'
         ).forEach(el => {
             if (!el.classList.contains('reveal')) {
                 el.classList.add('reveal');
@@ -905,7 +1199,7 @@ const ScrollReveal = (() => {
 
             if (isVisible && !el.classList.contains('revealed')) {
                 // Stagger animation for grid items
-                const delay = el.closest('.memories-grid, .example-wishes')
+                const delay = el.closest('.memories-grid, .carousel-track')
                     ? index * 100
                     : 0;
 
@@ -928,7 +1222,7 @@ const ScrollReveal = (() => {
                     entries.forEach((entry, index) => {
                         if (entry.isIntersecting) {
                             const delay = entry.target.closest(
-                                '.memories-grid, .example-wishes'
+                                '.memories-grid, .carousel-track'
                             ) ? index * 80 : 0;
 
                             setTimeout(() => {
@@ -1405,16 +1699,16 @@ const TouchHoverStyle = (() => {
 })();
 
 /* ============================================
-   COUNTDOWN CARD TRANSITION STYLE
+   COUNTUP CARD TRANSITION STYLE
    ============================================ */
-const CountdownStyle = (() => {
+const CountupStyle = (() => {
     const init = () => {
         const style = document.createElement('style');
         style.textContent = `
-            #countDays,
-            #countHours,
-            #countMinutes,
-            #countSeconds {
+            #countupDays,
+            #countupHours,
+            #countupMinutes,
+            #countupSeconds {
                 transition: transform 0.15s ease, opacity 0.15s ease;
             }
         `;
@@ -1438,12 +1732,13 @@ const App = (() => {
         // Core functionality
         Navigation.init();
         FloatingHearts.init();
-        Countdown.init();
+        CelebrationDisplay.init(); // Replaces Countdown
         BackToTop.init();
         ScrollReveal.init();
         ScrollIndicator.init();
         Celebration.init();
         WishesForm.init();
+        WishCarousel.init(); // New carousel
 
         // Interactions
         MemoryCards.init();
@@ -1453,7 +1748,7 @@ const App = (() => {
 
         // Style helpers
         TouchHoverStyle.init();
-        CountdownStyle.init();
+        CountupStyle.init();
 
         // Window resize
         ResizeHandler.init();
