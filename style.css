@@ -220,10 +220,8 @@ body::before {
     align-items: center;
     gap: 8px;
     transition: var(--transition-fast);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     flex-shrink: 1;
+    min-width: 0;
 }
 
 .nav.scrolled .nav-logo {
@@ -235,6 +233,16 @@ body::before {
     animation: pulseHeart 1.5s ease-in-out infinite;
     flex-shrink: 0;
     font-size: 0.85em;
+    /* small breathing room so the pulse scale never gets cropped */
+    padding: 4px;
+    margin: -4px;
+}
+
+.nav-logo-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
 }
 
 .nav-links {
