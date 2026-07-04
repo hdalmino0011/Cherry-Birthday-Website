@@ -1041,19 +1041,6 @@ body::before {
     color: var(--bright-gold);
 }
 
-.celebration-time {
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    color: var(--lavender);
-    margin-bottom: 28px;
-}
-
-.celebration-time span {
-    color: var(--white);
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
-}
-
 .celebration-message-box {
     background: rgba(255, 255, 255, 0.06);
     border-radius: var(--border-radius);
@@ -1937,10 +1924,6 @@ body::before {
         font-size: 0.95rem;
     }
 
-    .celebration-time {
-        font-size: 0.85rem;
-    }
-
     .celebration-message-box {
         padding: 20px 16px;
     }
@@ -2055,6 +2038,15 @@ body::before {
 
     .gifts-row {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .nav {
+        padding: 10px 12px;
+    }
+
+    .nav-logo {
+        font-size: 0.95rem;
+        gap: 6px;
     }
 }
 
