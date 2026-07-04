@@ -810,25 +810,18 @@ body::before {
     justify-content: center;
     gap: 8px;
     position: relative;
+    overflow: hidden;
 }
 
-.memory-card:nth-child(1) .memory-card-image {
-    background: linear-gradient(135deg, var(--soft-pink), var(--deep-rose));
+.memory-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition-medium);
 }
-.memory-card:nth-child(2) .memory-card-image {
-    background: linear-gradient(135deg, var(--lavender), var(--warm-coral));
-}
-.memory-card:nth-child(3) .memory-card-image {
-    background: linear-gradient(135deg, var(--warm-coral), var(--bright-gold));
-}
-.memory-card:nth-child(4) .memory-card-image {
-    background: linear-gradient(135deg, var(--bright-gold), var(--soft-pink));
-}
-.memory-card:nth-child(5) .memory-card-image {
-    background: linear-gradient(135deg, var(--deep-rose), var(--lavender));
-}
-.memory-card:nth-child(6) .memory-card-image {
-    background: linear-gradient(135deg, var(--soft-pink), var(--bright-gold), var(--deep-rose));
+
+.memory-card:hover .memory-card-image img {
+    transform: scale(1.08);
 }
 
 .memory-card-image i {
@@ -893,9 +886,9 @@ body::before {
 }
 
 /* ============================================
-   COUNTDOWN SECTION
+   CELEBRATION SECTION (Replaces Countdown)
    ============================================ */
-.countdown-section {
+.celebration-section {
     background: linear-gradient(
         135deg,
         var(--deep-navy) 0%,
@@ -906,108 +899,188 @@ body::before {
     overflow: hidden;
 }
 
-.countdown-section .section-title {
+.celebration-section .section-title {
     color: var(--white);
 }
 
-.countdown-section .section-subtitle {
+.celebration-section .section-subtitle {
     color: var(--soft-pink);
 }
 
-.countdown-section .section-icon {
+.celebration-section .section-icon {
     color: var(--bright-gold);
 }
 
-.countdown-section .heart-divider span {
+.celebration-section .heart-divider span {
     background: linear-gradient(90deg, transparent, var(--bright-gold), transparent);
 }
 
-.countdown-section .heart-divider i {
+.celebration-section .heart-divider i {
     color: var(--bright-gold);
 }
 
-.countdown-wrapper {
+.celebration-wrapper {
     max-width: 800px;
     margin: 0 auto;
 }
 
-.countdown-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    margin-bottom: 32px;
-}
-
-.countdown-card {
-    background: rgba(255, 255, 255, 0.1);
+.celebration-container {
+    background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: var(--border-radius);
-    padding: 28px 20px;
-    min-width: 110px;
-    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--border-radius-lg);
+    padding: 48px 40px;
     transition: var(--transition-medium);
 }
 
-.countdown-card:hover {
-    background: rgba(255, 255, 255, 0.18);
-    transform: translateY(-4px);
-    box-shadow: 0 8px 32px rgba(255, 215, 0, 0.2);
+.celebration-container:hover {
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 40px rgba(255, 215, 0, 0.1);
 }
 
-.countdown-number {
-    font-family: var(--font-heading);
-    font-size: 3rem;
+.celebration-main {
+    text-align: center;
+}
+
+.celebration-icon i {
+    font-size: 4rem;
+    color: var(--bright-gold);
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.celebration-title {
+    font-family: var(--font-romantic);
+    font-size: 3.5rem;
     font-weight: 700;
     color: var(--bright-gold);
-    line-height: 1;
-    margin-bottom: 8px;
-    text-shadow: 0 2px 20px rgba(255, 215, 0, 0.3);
+    margin-bottom: 12px;
+    text-shadow: 0 2px 30px rgba(255, 215, 0, 0.3);
 }
 
-.countdown-label {
+.celebration-date {
     font-family: var(--font-heading);
-    font-size: 0.85rem;
-    font-weight: 400;
+    font-size: 1.2rem;
     color: var(--soft-pink);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-.countdown-separator {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 24px;
-}
-
-.countdown-separator i {
-    font-size: 1rem;
-    color: var(--bright-gold);
-}
-
-.countdown-message {
-    text-align: center;
-    color: var(--soft-pink);
-    font-size: 1rem;
+    margin-bottom: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
 }
 
-.countdown-message i {
+.celebration-date i {
     color: var(--bright-gold);
-    font-size: 1.2rem;
 }
 
-/* Birthday Reached State */
-.countdown-message.birthday-reached {
-    font-family: var(--font-romantic);
-    font-size: 1.8rem;
+.celebration-time {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--lavender);
+    margin-bottom: 24px;
+}
+
+.celebration-time span {
+    color: var(--white);
+    font-weight: 600;
+}
+
+.celebration-message-box {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: var(--border-radius);
+    padding: 28px 24px;
+    margin-bottom: 32px;
+    border: 1px solid rgba(255, 215, 0, 0.15);
+}
+
+.celebration-message-box p {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: var(--soft-pink);
+    line-height: 1.8;
+    margin-bottom: 8px;
+}
+
+.celebration-message-box p:last-child {
+    margin-bottom: 0;
+}
+
+.celebration-message-box p i {
+    margin: 0 6px;
+}
+
+/* Count-up Timer */
+.countup-label {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    color: var(--soft-pink);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+.countup-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.countup-card {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: var(--border-radius);
+    padding: 20px 16px;
+    min-width: 90px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: var(--transition-medium);
+}
+
+.countup-card:hover {
+    background: rgba(255, 255, 255, 0.14);
+    transform: translateY(-3px);
+}
+
+.countup-number {
+    font-family: var(--font-heading);
+    font-size: 2.8rem;
+    font-weight: 700;
     color: var(--bright-gold);
+    line-height: 1;
+    margin-bottom: 4px;
+    text-shadow: 0 2px 20px rgba(255, 215, 0, 0.2);
+    transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.countup-card .countup-label {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 400;
+    color: var(--soft-pink);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0;
+}
+
+.countup-separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 8px;
+}
+
+.countup-separator i {
+    font-size: 0.9rem;
+    color: var(--bright-gold);
+}
+
+.countup-message {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--soft-pink);
+    margin-top: 8px;
 }
 
 /* ============================================
@@ -1190,14 +1263,16 @@ body::before {
     color: var(--white);
 }
 
-/* Example Wishes */
-.example-wishes {
+/* ============================================
+   WISHES CAROUSEL
+   ============================================ */
+.wishes-carousel-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
 }
 
-.example-wishes-title {
+.carousel-title {
     font-family: var(--font-heading);
     font-size: 1.1rem;
     font-weight: 600;
@@ -1205,37 +1280,49 @@ body::before {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
 }
 
-.example-wishes-title i {
+.carousel-title i {
     color: var(--deep-rose);
 }
 
-.wish-card {
-    background: var(--card-bg);
+.carousel-container {
+    position: relative;
+    overflow: hidden;
     border-radius: var(--border-radius);
-    padding: 24px;
-    box-shadow: var(--shadow-soft);
-    border: 1px solid rgba(255, 182, 193, 0.15);
-    transition: var(--transition-medium);
-}
-
-.wish-card:hover {
-    transform: translateY(-3px);
+    background: var(--card-bg);
     box-shadow: var(--shadow-medium);
+    border: 1px solid rgba(255, 182, 193, 0.15);
+    min-height: 220px;
 }
 
-.wish-card-header {
+.carousel-track {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+
+.carousel-slide {
+    flex: 0 0 100%;
+    padding: 28px 32px;
+    box-sizing: border-box;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.carousel-slide .slide-header {
     display: flex;
     align-items: center;
     gap: 12px;
     margin-bottom: 12px;
 }
 
-.wish-avatar {
-    width: 40px;
-    height: 40px;
+.carousel-slide .slide-avatar {
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     background: linear-gradient(135deg, var(--soft-pink), var(--deep-rose));
     display: flex;
@@ -1244,42 +1331,120 @@ body::before {
     color: var(--white);
     font-size: 0.9rem;
     flex-shrink: 0;
+    font-weight: 600;
 }
 
-.wish-card-header h4 {
+.carousel-slide .slide-name {
     font-family: var(--font-heading);
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--text-dark);
 }
 
-.wish-date {
+.carousel-slide .slide-relation {
     font-size: 0.8rem;
     color: var(--text-light);
 }
 
-.wish-text {
-    font-size: 0.95rem;
+.carousel-slide .slide-message {
+    font-size: 1rem;
     line-height: 1.7;
     color: var(--text-medium);
     font-style: italic;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
-.wish-hearts {
+.carousel-slide .slide-hearts {
     display: flex;
     gap: 4px;
+    margin-top: 4px;
 }
 
-.wish-hearts i {
+.carousel-slide .slide-hearts i {
     color: var(--deep-rose);
     font-size: 0.7rem;
     opacity: 0.6;
 }
 
-.wish-hearts i:nth-child(1) { animation: pulseHeart 1.5s ease-in-out infinite; }
-.wish-hearts i:nth-child(2) { animation: pulseHeart 1.5s ease-in-out 0.2s infinite; }
-.wish-hearts i:nth-child(3) { animation: pulseHeart 1.5s ease-in-out 0.4s infinite; }
+.carousel-slide .slide-hearts i:nth-child(1) { animation: pulseHeart 1.5s ease-in-out infinite; }
+.carousel-slide .slide-hearts i:nth-child(2) { animation: pulseHeart 1.5s ease-in-out 0.2s infinite; }
+.carousel-slide .slide-hearts i:nth-child(3) { animation: pulseHeart 1.5s ease-in-out 0.4s infinite; }
+
+/* Carousel Arrows */
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--deep-rose);
+    font-size: 0.9rem;
+    transition: var(--transition-fast);
+    z-index: 5;
+    border: 1px solid rgba(255, 182, 193, 0.2);
+}
+
+.carousel-arrow:hover {
+    background: var(--white);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+    transform: translateY(-50%) scale(1.08);
+}
+
+.carousel-arrow-prev {
+    left: 12px;
+}
+
+.carousel-arrow-next {
+    right: 12px;
+}
+
+/* Carousel Dots */
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 0;
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--medium-pink);
+    border: none;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    padding: 0;
+}
+
+.carousel-dot.active {
+    background: var(--deep-rose);
+    transform: scale(1.2);
+}
+
+.carousel-dot:hover {
+    background: var(--deep-rose);
+    opacity: 0.7;
+}
+
+/* Carousel Counter */
+.carousel-counter {
+    text-align: center;
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    color: var(--text-light);
+}
+
+.carousel-counter span {
+    font-weight: 600;
+    color: var(--text-medium);
+}
 
 /* ============================================
    FOOTER
@@ -1568,13 +1733,17 @@ body::before {
         gap: 40px;
     }
 
-    .countdown-card {
-        min-width: 90px;
-        padding: 22px 16px;
+    .celebration-title {
+        font-size: 2.8rem;
     }
 
-    .countdown-number {
-        font-size: 2.5rem;
+    .countup-card {
+        min-width: 80px;
+        padding: 16px 12px;
+    }
+
+    .countup-number {
+        font-size: 2.2rem;
     }
 
     .section-title {
@@ -1591,6 +1760,16 @@ body::before {
 
     .nav-toggle {
         display: block;
+    }
+
+    .carousel-slide {
+        padding: 24px 20px;
+    }
+
+    .carousel-arrow {
+        width: 34px;
+        height: 34px;
+        font-size: 0.8rem;
     }
 }
 
@@ -1726,30 +1905,55 @@ body::before {
         font-size: 0.7rem;
     }
 
-    /* Countdown */
-    .countdown-container {
-        gap: 8px;
+    /* Celebration Section */
+    .celebration-container {
+        padding: 28px 20px;
     }
 
-    .countdown-card {
-        min-width: 70px;
-        padding: 16px 10px;
+    .celebration-title {
+        font-size: 2.2rem;
     }
 
-    .countdown-number {
+    .celebration-date {
+        font-size: 1rem;
+    }
+
+    .celebration-time {
+        font-size: 0.9rem;
+    }
+
+    .celebration-message-box {
+        padding: 20px 16px;
+    }
+
+    .celebration-message-box p {
+        font-size: 0.95rem;
+    }
+
+    .countup-container {
+        gap: 6px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .countup-card {
+        min-width: 65px;
+        padding: 14px 10px;
+    }
+
+    .countup-number {
         font-size: 1.8rem;
     }
 
-    .countdown-label {
-        font-size: 0.7rem;
-        letter-spacing: 1px;
+    .countup-card .countup-label {
+        font-size: 0.6rem;
     }
 
-    .countdown-separator i {
+    .countup-separator i {
         font-size: 0.7rem;
     }
 
-    .countdown-message {
+    .countup-message {
         font-size: 0.9rem;
     }
 
@@ -1763,8 +1967,32 @@ body::before {
         font-size: 0.95rem;
     }
 
-    .wish-card {
+    /* Carousel */
+    .carousel-slide {
         padding: 20px 16px;
+        min-height: 180px;
+    }
+
+    .carousel-slide .slide-message {
+        font-size: 0.9rem;
+    }
+
+    .carousel-slide .slide-name {
+        font-size: 0.9rem;
+    }
+
+    .carousel-arrow {
+        width: 30px;
+        height: 30px;
+        font-size: 0.7rem;
+    }
+
+    .carousel-arrow-prev {
+        left: 6px;
+    }
+
+    .carousel-arrow-next {
+        right: 6px;
     }
 
     /* Footer */
@@ -1793,7 +2021,7 @@ body::before {
         font-size: 1rem;
     }
 
-    /* Celebration */
+    /* Celebration Overlay */
     .celebration-message h2 {
         font-size: 2rem;
     }
@@ -1828,13 +2056,13 @@ body::before {
         grid-template-columns: 1fr;
     }
 
-    .countdown-card {
-        min-width: 60px;
-        padding: 14px 8px;
+    .countup-card {
+        min-width: 55px;
+        padding: 10px 6px;
     }
 
-    .countdown-number {
-        font-size: 1.5rem;
+    .countup-number {
+        font-size: 1.4rem;
     }
 }
 
