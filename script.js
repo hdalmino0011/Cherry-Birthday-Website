@@ -58,6 +58,18 @@ const DOM = {
 
     backToTop:          document.getElementById('backToTop'),
 
+    memoryLightbox:      document.getElementById('memoryLightbox'),
+    lightboxBackdrop:    document.getElementById('lightboxBackdrop'),
+    lightboxClose:       document.getElementById('lightboxClose'),
+    lightboxPrev:        document.getElementById('lightboxPrev'),
+    lightboxNext:        document.getElementById('lightboxNext'),
+    lightboxImage:       document.getElementById('lightboxImage'),
+    lightboxPlaceholder: document.getElementById('lightboxPlaceholder'),
+    lightboxTitle:       document.getElementById('lightboxTitle'),
+    lightboxSubtitle:    document.getElementById('lightboxSubtitle'),
+    lightboxCurrent:     document.getElementById('lightboxCurrent'),
+    lightboxTotal:       document.getElementById('lightboxTotal'),
+
     revealElements:     document.querySelectorAll(
         '.letter-card, .memory-card, .celebration-wrapper, ' +
         '.wishes-form-wrapper, .carousel-container'
@@ -999,6 +1011,135 @@ const ParallaxEffect = (() => {
 })();
 
 /* ============================================
+   MEMORY PHOTO LIGHTBOX
+   ============================================ */
+const MemoryLightbox = (() => {
+
+    let photos = [];
+    let currentIndex = 0;
+    let lastFocusedEl = null;
+
+    const collectPhotos = () => {
+        const cards = document.querySelectorAll('.memory-card');
+        photos = Array.from(cards).map(card => {
+            const img      = card.querySelector('.memory-card-image img');
+            const heading  = card.querySelector('.memory-card-caption h3');
+            const subtext  = card.querySelector('.memory-card-caption p');
+            return {
+                src:   img ? img.getAttribute('src') : '',
+                alt:   img ? img.getAttribute('alt') : '',
+                title: heading ? heading.textContent : '',
+                sub:   subtext ? subtext.textContent : '',
+                failed: img ? img.classList.contains('img-failed') : false,
+            };
+        });
+
+        if (DOM.lightboxTotal) {
+            DOM.lightboxTotal.textContent = photos.length;
+        }
+    };
+
+    const renderSlide = () => {
+        if (photos.length === 0) return;
+        const photo = photos[currentIndex];
+
+        DOM.lightboxImage.src = photo.src;
+        DOM.lightboxImage.alt = photo.alt;
+        DOM.lightboxImage.classList.remove('img-failed');
+
+        DOM.lightboxTitle.textContent    = photo.title;
+        DOM.lightboxSubtitle.textContent = photo.sub;
+        DOM.lightboxCurrent.textContent  = currentIndex + 1;
+    };
+
+    const handleImageError = () => {
+        DOM.lightboxImage.classList.add('img-failed');
+    };
+
+    const open = (index, triggerEl) => {
+        if (photos.length === 0) collectPhotos();
+        currentIndex = index;
+        lastFocusedEl = triggerEl || document.activeElement;
+
+        renderSlide();
+
+        DOM.memoryLightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        DOM.lightboxClose.focus();
+    };
+
+    const close = () => {
+        DOM.memoryLightbox.classList.remove('active');
+        document.body.style.overflow = '';
+        if (lastFocusedEl && typeof lastFocusedEl.focus === 'function') {
+            lastFocusedEl.focus();
+        }
+    };
+
+    const next = () => {
+        if (photos.length === 0) return;
+        currentIndex = (currentIndex + 1) % photos.length;
+        renderSlide();
+    };
+
+    const prev = () => {
+        if (photos.length === 0) return;
+        currentIndex = (currentIndex - 1 + photos.length) % photos.length;
+        renderSlide();
+    };
+
+    const bindCardTriggers = () => {
+        const cards = document.querySelectorAll('.memory-card');
+        cards.forEach((card, index) => {
+            card.addEventListener('click', () => open(index, card));
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    open(index, card);
+                }
+            });
+        });
+    };
+
+    const init = () => {
+        if (!DOM.memoryLightbox) return;
+
+        collectPhotos();
+        bindCardTriggers();
+
+        DOM.lightboxImage.addEventListener('error', handleImageError);
+        DOM.lightboxClose.addEventListener('click', close);
+        DOM.lightboxBackdrop.addEventListener('click', close);
+        DOM.lightboxNext.addEventListener('click', next);
+        DOM.lightboxPrev.addEventListener('click', prev);
+
+        document.addEventListener('keydown', (e) => {
+            if (!DOM.memoryLightbox.classList.contains('active')) return;
+
+            if (e.key === 'Escape') close();
+            if (e.key === 'ArrowRight') next();
+            if (e.key === 'ArrowLeft') prev();
+        });
+
+        let touchStartX = 0;
+        DOM.memoryLightbox.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].clientX;
+        }, { passive: true });
+
+        DOM.memoryLightbox.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const diff = touchEndX - touchStartX;
+            if (Math.abs(diff) > 50) {
+                diff > 0 ? prev() : next();
+            }
+        }, { passive: true });
+    };
+
+    return { init };
+
+})();
+
+/* ============================================
    MEMORY CARDS INTERACTION
    ============================================ */
 const MemoryCards = (() => {
@@ -1306,6 +1447,7 @@ const App = (() => {
         WishCarousel.init();
 
         MemoryCards.init();
+        MemoryLightbox.init();
         ParallaxEffect.init();
         SparkleCursor.init();
         ActiveNavLink.init();
