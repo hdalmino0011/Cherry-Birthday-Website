@@ -186,7 +186,7 @@
 
             <div class="memories-grid">
 
-                <div class="memory-card">
+                <div class="memory-card" role="button" tabindex="0" aria-haspopup="dialog">
                     <div class="memory-card-image">
                         <img src="images/memory1.jpg" alt="Our First Date" loading="lazy" onerror="this.classList.add('img-failed')">
                         <i class="fas fa-heart memory-card-placeholder-icon"></i>
@@ -200,7 +200,7 @@
                     </div>
                 </div>
 
-                <div class="memory-card">
+                <div class="memory-card" role="button" tabindex="0" aria-haspopup="dialog">
                     <div class="memory-card-image">
                         <img src="images/memory2.jpg" alt="Your Smile" loading="lazy" onerror="this.classList.add('img-failed')">
                         <i class="fas fa-face-smile-beam memory-card-placeholder-icon"></i>
@@ -214,7 +214,7 @@
                     </div>
                 </div>
 
-                <div class="memory-card">
+                <div class="memory-card" role="button" tabindex="0" aria-haspopup="dialog">
                     <div class="memory-card-image">
                         <img src="images/memory3.jpg" alt="Holding Hands" loading="lazy" onerror="this.classList.add('img-failed')">
                         <i class="fas fa-hands-holding memory-card-placeholder-icon"></i>
@@ -228,7 +228,7 @@
                     </div>
                 </div>
 
-                <div class="memory-card">
+                <div class="memory-card" role="button" tabindex="0" aria-haspopup="dialog">
                     <div class="memory-card-image">
                         <img src="images/memory4.jpg" alt="Laughing Together" loading="lazy" onerror="this.classList.add('img-failed')">
                         <i class="fas fa-face-laugh-beam memory-card-placeholder-icon"></i>
@@ -242,7 +242,7 @@
                     </div>
                 </div>
 
-                <div class="memory-card">
+                <div class="memory-card" role="button" tabindex="0" aria-haspopup="dialog">
                     <div class="memory-card-image">
                         <img src="images/memory5.jpg" alt="Sunset Walks" loading="lazy" onerror="this.classList.add('img-failed')">
                         <i class="fas fa-sun memory-card-placeholder-icon"></i>
@@ -256,7 +256,7 @@
                     </div>
                 </div>
 
-                <div class="memory-card">
+                <div class="memory-card" role="button" tabindex="0" aria-haspopup="dialog">
                     <div class="memory-card-image">
                         <img src="images/memory6.jpg" alt="Forever Us" loading="lazy" onerror="this.classList.add('img-failed')">
                         <i class="fas fa-infinity memory-card-placeholder-icon"></i>
@@ -539,6 +539,39 @@
                 <i class="fas fa-heart"></i> Thank You, My Love
             </button>
         </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- MEMORY PHOTO LIGHTBOX                        -->
+    <!-- ============================================ -->
+    <div class="lightbox" id="memoryLightbox" role="dialog" aria-modal="true" aria-label="Memory photo viewer">
+        <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+
+        <button class="lightbox-close" id="lightboxClose" aria-label="Close photo viewer">
+            <i class="fas fa-xmark"></i>
+        </button>
+
+        <button class="lightbox-nav lightbox-nav-prev" id="lightboxPrev" aria-label="Previous photo">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+
+        <div class="lightbox-stage">
+            <div class="lightbox-frame">
+                <img src="" alt="" id="lightboxImage" class="lightbox-image">
+                <i class="fas fa-heart lightbox-placeholder-icon" id="lightboxPlaceholder"></i>
+            </div>
+            <div class="lightbox-caption">
+                <h3 id="lightboxTitle"></h3>
+                <p id="lightboxSubtitle"></p>
+            </div>
+            <div class="lightbox-counter">
+                <span id="lightboxCurrent">1</span> / <span id="lightboxTotal">6</span>
+            </div>
+        </div>
+
+        <button class="lightbox-nav lightbox-nav-next" id="lightboxNext" aria-label="Next photo">
+            <i class="fas fa-chevron-right"></i>
+        </button>
     </div>
 
     <!-- External Script -->
